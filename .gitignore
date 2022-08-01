@@ -110,3 +110,7 @@ Temporary Items
 
 # vim
 *.swp
+
+.github
+
+.swiftlint.yml
