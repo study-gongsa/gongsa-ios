@@ -86,9 +86,9 @@ class Utilities {
         return checkbox
     }
 
-    func TOSButton() -> UIButton {
+    func greyUnderlinedButton(withText text: String) -> UIButton {
         let button = UIButton()
-        let attributedString = NSAttributedString(string: "이용약관", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 12, family: .Medium) ])
+        let attributedString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 12, family: .Medium) ])
         button.setAttributedTitle(attributedString, for: .normal)
         return button
     }
