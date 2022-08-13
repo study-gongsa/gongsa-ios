@@ -48,9 +48,8 @@ class RegisterViewModel {
     }
 
     func isNicknameValid() -> Bool {
-        // MARK: - TODO: 올바른 닉네임 정규표현식 작성해야함
         let nicknameTest = NSPredicate(format: "SELF MATCHES %@",
-                                       "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
+                                       "^[가-힣A-Za-z0-9]{1,10}$")
         return nicknameTest.evaluate(with: user.value.nickname)
     }
 
