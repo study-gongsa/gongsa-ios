@@ -8,7 +8,5 @@ target 'GongSa' do
   pod 'WebRTC-lib'
   pod 'Alamofire'
   pod 'SwiftLint'
-  pod 'Then'
-  pod 'SnapKit'
 
 end
