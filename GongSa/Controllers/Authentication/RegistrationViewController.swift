@@ -112,19 +112,19 @@ class RegistrationViewController: UIViewController {
     }()
 
     private let termsOfServiceButton: UIButton = {
-        let button = Utilities().TOSButton()
+        let button = Utilities().greyUnderlinedButton(withText: "이용약관 동의 (필수)")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let privacyPolicyButton: UIButton = {
-        let button = Utilities().TOSButton()
+        let button = Utilities().greyUnderlinedButton(withText: "개인정보 수집 및 이용 동의 (필수)")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let eventReceiveButton: UIButton = {
-        let button = Utilities().TOSButton()
+        let button = Utilities().greyUnderlinedButton(withText: "이벤트 정보 수신 동의 (선택)")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
