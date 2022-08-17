@@ -29,4 +29,8 @@ extension UIColor {
         return UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
+    static var gsBlack: UIColor {
+        return UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1)
+    }
+
 }
