@@ -112,19 +112,19 @@ class RegistrationViewController: UIViewController {
     }()
 
     private let termsOfServiceButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "이용약관 동의 (필수)")
+        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let privacyPolicyButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "개인정보 수집 및 이용 동의 (필수)")
+        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let eventReceiveButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "이벤트 정보 수신 동의 (선택)")
+        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -224,12 +224,12 @@ class RegistrationViewController: UIViewController {
                                                        passwordConfirmContainerView,
                                                        nicknameContainerView])
         authStack.axis = .vertical
-        authStack.spacing = 20
+        authStack.spacing = 10
         authStack.distribution = .fillEqually
 
         view.addSubview(authStack)
-        authStack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
-                         right: view.rightAnchor, paddingTop: 72,
+        authStack.anchor(top: view.topAnchor, left: view.leftAnchor,
+                         right: view.rightAnchor, paddingTop: 130,
                          paddingLeft: 24, paddingRight: 24)
 
         let agreementStack = UIStackView(arrangedSubviews: [termsOfServiceContainerView,
@@ -241,14 +241,14 @@ class RegistrationViewController: UIViewController {
 
         view.addSubview(agreementStack)
         agreementStack.anchor(top: authStack.bottomAnchor, left: view.leftAnchor,
-                              right: view.rightAnchor, paddingTop: 41,
+                              right: view.rightAnchor, paddingTop: 30,
                               paddingLeft: 24, paddingRight: 24)
 
         view.addSubview(registerButton)
         registerButton.anchor(top: agreementStack.bottomAnchor, left: view.leftAnchor,
                               bottom: view.bottomAnchor, right: view.rightAnchor,
-                              paddingTop: 61, paddingLeft: 24,
-                              paddingBottom: 76, paddingRight: 24)
+                              paddingTop: 51, paddingLeft: 24,
+                              paddingBottom: 50, paddingRight: 24)
     }
 
     private func configureNavigationBar() {
@@ -260,7 +260,7 @@ class RegistrationViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButton
         self.navigationItem.title = "회원가입"
         self.navigationController?.navigationBar.titleTextAttributes =
-        [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.gsBlack]
     }
 
     // MARK: - TODO: 리팩토링
