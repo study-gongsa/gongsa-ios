@@ -10,8 +10,6 @@ import UIKit
 class Utilities {
 
     func inputContainerView(text: String, textField: UITextField, error: UIView) -> UIView {
-        let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: 90).isActive = true
 
         let textLabel = UILabel()
         textLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
@@ -19,13 +17,15 @@ class Utilities {
         textLabel.textColor = UIColor.gsDarkGray
         textLabel.font = UIFont.pretendard(size: 14, family: .Bold)
 
-        view.addSubview(textLabel)
+        let view = UIStackView(arrangedSubviews: [textLabel, textField, error])
+        view.distribution = .fillEqually
+        view.axis = .vertical
+
+        view.setDimensions(width: 327, height: 90)
+
         textLabel.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
 
-        view.addSubview(textField)
         textField.anchor(top: textLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 8)
-
-        view.addSubview(error)
 
         error.anchor(top: textField.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 4)
 
@@ -50,20 +50,21 @@ class Utilities {
         textLabel.anchor(top: view.topAnchor, left: checkbox.rightAnchor, bottom: view.bottomAnchor, paddingLeft: 12)
 
         view.addSubview(button)
-        button.anchor(top: view.topAnchor, left: textLabel.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
+        button.anchor(top: view.topAnchor, left: textLabel.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 98)
 
         return view
     }
 
     func textField(withPlaceholder placeholder: String) -> UITextField {
         let textField = TextField()
-        textField.heightAnchor.constraint(equalToConstant: 47).isActive = true
+        textField.setDimensions(width: 327, height: 47)
         textField.placeholder = placeholder
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
         textField.font = UIFont.pretendard(size: 16, family: .Medium)
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 16, family: .Medium)])
+        textField.textColor = UIColor.gsBlack
 
         return textField
     }
@@ -106,7 +107,7 @@ class Utilities {
 }
 
 class TextField: UITextField {
-    let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 5)
+    let padding = UIEdgeInsets(top: 7, left: 16, bottom: 7, right: 5)
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
