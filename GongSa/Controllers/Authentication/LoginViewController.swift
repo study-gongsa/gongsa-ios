@@ -31,7 +31,7 @@ struct ViewPreview: PreviewProvider {
     }
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties
     // 로그인 라벨
@@ -239,22 +239,19 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(createAccountLbl.snp.bottom).offset(24)
             $0.trailing.equalToSuperview().offset(-24)
         }
-//        self.idTxtField.snp.makeConstraints {
-//            $0.top.
-//
-//            nameTextField.snp.makeConstraints { make in
-//                        make.top.equalTo(nameLabel.snp.bottom).offset(24)
-//                        make.leading.trailing.equalTo(nameLabel)
-//                    }
-//        }
     }
-
+    // Delegate
+    func setDelegate() {
+        pwTxtField.delegate = self
+        emailTxtField.delegate = self
+    }
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
         self.setConstraints()
+        self.setDelegate()
     }
 
     // MARK: - Selectors
@@ -301,4 +298,23 @@ extension UITextField {
             self.rightViewMode = .always
         }
     }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+          emailTxtField.resignFirstResponder()
+          pwTxtField.resignFirstResponder()
+          return true
+      }
+      
+      func textFieldDidBeginEditing(_ textField: UITextField) {
+          emailInfoLbl.isHidden = true
+          pwInfoLbl.isHidden = true
+          emailTxtField.layer.borderWidth = 0
+          pwTxtField.layer.borderWidth = 0
+      }
+      
+      override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+          self.view.endEditing(true)
+      }
 }

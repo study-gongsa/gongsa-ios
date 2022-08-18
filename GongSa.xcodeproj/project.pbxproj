@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		175DFC273C4506FFBCDE0EC5 /* Pods_GongSa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90841B8A412AE1A3EBC534E3 /* Pods_GongSa.framework */; };
 		3BBF59EA28ACD35100765AF9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF59E928ACD35100765AF9 /* LoginViewModel.swift */; };
+		3BBF59EC28ACEC0600765AF9 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF59EB28ACEC0600765AF9 /* LoginRequest.swift */; };
 		6D40B11928963EEB00ABD92A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D40B11828963EEB00ABD92A /* AppDelegate.swift */; };
 		6D40B11B28963EEB00ABD92A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D40B11A28963EEB00ABD92A /* SceneDelegate.swift */; };
 		6D40B12228963EEC00ABD92A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D40B12128963EEC00ABD92A /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		3BBF59E928ACD35100765AF9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		3BBF59EB28ACEC0600765AF9 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		6D40B11528963EEB00ABD92A /* GongSa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GongSa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D40B11828963EEB00ABD92A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D40B11A28963EEB00ABD92A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		6D40B12E2896401600ABD92A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3BBF59EB28ACEC0600765AF9 /* LoginRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				6DD7488728964C8A0000B288 /* RegistrationViewController.swift in Sources */,
 				3BBF59EA28ACD35100765AF9 /* LoginViewModel.swift in Sources */,
 				6D40B11B28963EEB00ABD92A /* SceneDelegate.swift in Sources */,
+				3BBF59EC28ACEC0600765AF9 /* LoginRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
