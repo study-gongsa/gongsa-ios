@@ -112,25 +112,25 @@ class RegistrationViewController: UIViewController {
     }()
 
     private let termsOfServiceButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
+        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let privacyPolicyButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
+        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let eventReceiveButton: UIButton = {
-        let button = Utilities().greyUnderlinedButton(withText: "약관보기")
+        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private lazy var registerButton: UIButton = {
-        let button = Utilities().authButton(withTitle: "회원가입")
+        let button = UIButton.mainButton(withTitle: "회원가입")
         button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         return button
     }()
@@ -153,24 +153,26 @@ class RegistrationViewController: UIViewController {
 
         // TODO: 유저 register 코드 -> ViewModel
 
+        self.navigationController?.pushViewController(EmailAuthWaitingViewController(), animated: true) // waiting -> done
+
         // MainTabViewController 가져와서 인증, UI 렌더링 후 dismiss
-        let window: UIWindow
-        if #available(iOS 13.0, *) {
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            guard let firstWindow = windowScene?.windows.first(where: { $0.isKeyWindow }) else { return }
-            window = firstWindow
-
-        } else {
-            guard let firstWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            window = firstWindow
-        }
-
-        guard let tab = window.rootViewController as? MainTabViewController else { return }
-
-        tab.authenticateUserAndConfigureUI()
-
-        self.dismiss(animated: true, completion: nil)
+        //        let window: UIWindow
+        //        if #available(iOS 13.0, *) {
+        //            let scenes = UIApplication.shared.connectedScenes
+        //            let windowScene = scenes.first as? UIWindowScene
+        //            guard let firstWindow = windowScene?.windows.first(where: { $0.isKeyWindow }) else { return }
+        //            window = firstWindow
+        //
+        //        } else {
+        //            guard let firstWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+        //            window = firstWindow
+        //        }
+        //
+        //        guard let tab = window.rootViewController as? MainTabViewController else { return }
+        //
+        //        tab.authenticateUserAndConfigureUI()
+        //
+        //        self.dismiss(animated: true, completion: nil)
     }
 
     @objc private func textFieldDidChange(_ sender: UITextField) {
@@ -216,7 +218,6 @@ class RegistrationViewController: UIViewController {
     }
 
     // MARK: - Helpers
-
     private func configureUI() {
 
         let authStack = UIStackView(arrangedSubviews: [emailContainerView,
@@ -314,7 +315,7 @@ class RegistrationViewController: UIViewController {
     }
 
     private func toggleRegisterButton() {
-        self.registerButton.isEnabled = self.registerViewModel.shouldEnableRegisterButton
+        self.registerButton.isEnabled = true // DEBUG -> org: false self.registerViewModel.shouldEnableRegisterButton
         self.registerButton.backgroundColor = self.registerViewModel.registerButtonColor
     }
 }
