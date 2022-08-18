@@ -5,4 +5,75 @@
 //  Created by taechan on 2022/08/17.
 //
 
-import Foundation
+import UIKit
+
+class EmailAuthDoneViewController: UIViewController {
+
+    // MARK: - Helpers
+
+    private let doneIcon: UIImageView = {
+        let icon = UIImageView(image: UIImage(named: "complete"))
+//        icon.setDimensions(width: 60.21, height: 41.56)
+        icon.contentMode = .scaleAspectFit
+        return icon
+    }()
+
+    private let doneLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이메일 인증이 완료되었습니다."
+        label.textColor = .gsBlack
+        label.textAlignment = .center
+        label.font = .pretendard(size: 16, family: .Bold)
+        return label
+    }()
+
+    private let doneSubLabel: UILabel = {
+        let label = UILabel()
+        label.text = "공사와 함께 원하는 목표를 달성하세요."
+        label.textColor = .gsBlack
+        label.textAlignment = .center
+        label.font = .pretendard(size: 14, family: .Medium)
+        return label
+    }()
+
+    private lazy var startButton: UIButton = {
+        let button = UIButton.mainButton(withTitle: "시작하기")
+        button.backgroundColor = .gsGreen
+        return button
+    }()
+
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        configureNavigationBar()
+        configureUI()
+    }
+
+    // MARK: - Selectors
+
+    // MARK: - Helpers
+    private func configureUI() {
+        view.addSubview(doneIcon)
+        view.addSubview(doneLabel)
+        view.addSubview(doneSubLabel)
+        view.addSubview(startButton)
+
+        doneIcon.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 182, paddingLeft: 157, paddingBottom: 581, paddingRight: 157)
+        doneLabel.anchor(top: doneIcon.bottomAnchor, left: doneIcon.leftAnchor, right: doneIcon.rightAnchor, paddingTop: 48, paddingLeft: -67, paddingRight: -67)
+        doneSubLabel.anchor(top: doneLabel.bottomAnchor, left: doneLabel.leftAnchor, right: doneLabel.rightAnchor, paddingTop: 12, paddingLeft: -9, paddingRight: -9)
+        startButton.anchor(top: doneSubLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 341, paddingLeft: 32, paddingBottom: 92, paddingRight: 32)
+    }
+
+    private func configureNavigationBar() {
+        let backButton = UIBarButtonItem(image: UIImage(named: "back"),
+                                         style: .plain,
+                                         target: navigationController,
+                                         action: #selector(UINavigationController.popViewController(animated:)))
+        backButton.tintColor = UIColor.gsLightGray
+        navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.title = "이메일 인증"
+        self.navigationController?.navigationBar.titleTextAttributes =
+        [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.gsBlack]
+    }
+}
