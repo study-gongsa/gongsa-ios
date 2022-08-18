@@ -87,23 +87,6 @@ class Utilities {
         return checkbox
     }
 
-    func greyUnderlinedButton(withText text: String) -> UIButton {
-        let button = UIButton()
-        let attributedString = NSAttributedString(string: text, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 12, family: .Medium) ])
-        button.setAttributedTitle(attributedString, for: .normal)
-        return button
-    }
-
-    func authButton(withTitle title: String) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.gsWhite, for: .normal)
-        button.backgroundColor = UIColor.gsLightGray
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.pretendard(size: 16, family: .Bold)
-        return button
-    }
 }
 
 class TextField: UITextField {
