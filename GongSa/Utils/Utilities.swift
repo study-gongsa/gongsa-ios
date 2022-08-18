@@ -9,7 +9,7 @@ import UIKit
 
 class Utilities {
 
-    func inputContainerView(text: String, textField: UITextField, error: UIView) -> UIView {
+    func inputContainerView(text: String, textField: UITextField, error: UILabel? = nil) -> UIView {
 
         let textLabel = UILabel()
         textLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
@@ -17,7 +17,7 @@ class Utilities {
         textLabel.textColor = UIColor.gsDarkGray
         textLabel.font = UIFont.pretendard(size: 14, family: .Bold)
 
-        let view = UIStackView(arrangedSubviews: [textLabel, textField, error])
+        let view = UIStackView(arrangedSubviews: [textLabel, textField, error ?? UILabel()])
         view.distribution = .fillEqually
         view.axis = .vertical
 
@@ -27,6 +27,11 @@ class Utilities {
 
         textField.anchor(top: textLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 8)
 
+        guard let error = error else {
+            textField.anchor(top: textLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 8)
+            return view
+
+        }
         error.anchor(top: textField.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 4)
 
         return view
