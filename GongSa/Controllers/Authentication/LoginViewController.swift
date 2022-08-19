@@ -31,7 +31,11 @@ struct ViewPreview: PreviewProvider {
     }
 }
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController{
+    
+//    private loginManager: LoginManager
+    
+    
 
     // MARK: - Properties
     // 로그인 라벨
@@ -252,14 +256,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.setUpView()
         self.setConstraints()
         self.setDelegate()
+        loginBtn.addTarget(self, action: #selector(goLogin), for: .touchUpInside)
+        emailTxtField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
     }
 
     // MARK: - Selectors
-
+    @objc func goLogin(sender: UIButton) {
+        // 로그인 버튼 클릭
+        
+        print(sender.tag)
+    }
+    // 키보드 내리기
+    @objc func didEndOnExit(_ sender: UITextField) {
+        if emailTxtField.isFirstResponder {
+            pwTxtField.becomeFirstResponder()
+        }
+    }
     // MARK: - Helpers
 
-}
+    func bindData() {
+        
+    }
 
+}
 // MARK: Extension
 // 파일 하나 만들어서 저장하기
 extension UIButton {
