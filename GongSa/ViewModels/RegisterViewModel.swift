@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 struct UserRegisterData {
     var email: String
@@ -21,6 +22,15 @@ struct UserRegisterData {
     }
 }
 
+enum promptMessage: String {
+    case emailFormatInvalid = "잘못된 이메일 형식입니다."
+    case emailAlreadyExists = "중복된 이메일 입니다."
+    case passwordFormatInvalid = "잘못된 비밀번호 형식입니다."
+    case passwordConfirmFormatInvalid = "비밀번호가 일치하지 않습니다."
+    case nicknameFormatInvalid = "잘못된 닉네임 형식입니다."
+    case nicknameAlreadyExists = "중복된 닉네임 입니다."
+}
+
 class RegisterViewModel {
 
     var user: Observable<UserRegisterData>
@@ -29,12 +39,15 @@ class RegisterViewModel {
     var privacyPolicy: Observable<Bool>
     var eventReceive: Observable<Bool>
 
+    var registerButton: Observable<Bool>
+
     // MARK: - Validation Functions
 
     func isEmailValid() -> Bool {
         let emailTest = NSPredicate(format: "SELF MATCHES %@",
                                     "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
-        return emailTest.evaluate(with: user.value.email)
+
+        return emailTest.evaluate(with: user.value.email) && !doesEmailExist
     }
 
     func isPasswordValid() -> Bool {
@@ -50,7 +63,7 @@ class RegisterViewModel {
     func isNicknameValid() -> Bool {
         let nicknameTest = NSPredicate(format: "SELF MATCHES %@",
                                        "^[가-힣A-Za-z0-9]{1,10}$")
-        return nicknameTest.evaluate(with: user.value.nickname)
+        return nicknameTest.evaluate(with: user.value.nickname) && !doesNicknameExist
     }
 
     var isSignUpComplete: Bool {
@@ -76,41 +89,57 @@ class RegisterViewModel {
         return isSignUpComplete && isAllChecked ? true : false
     }
 
+    // MARK: - Duplicate Check
+
+    var doesEmailExist: Bool {
+        return emailDuplicateMessage != nil
+    }
+
+    var doesNicknameExist: Bool {
+        return nicknameDuplicateMessage != nil
+    }
+
+    var emailDuplicateMessage: String?
+
+    var nicknameDuplicateMessage: String?
+
     // MARK: - Validation Prompt Strings
 
-    var emailPrompt: String {
+    var emailPrompt: String? {
         if user.value.email == "" { return "" }
         if isEmailValid() {
             return ""
         } else {
-            return "잘못된 형식의 이메일 주소입니다."
+            debugPrint("DEBUG - emailDuplicateMessage", emailDuplicateMessage)
+            return doesEmailExist ? promptMessage.emailAlreadyExists.rawValue : promptMessage.emailFormatInvalid.rawValue
         }
     }
 
-    var passwordPrompt: String {
+    var passwordPrompt: String? {
         if user.value.password == "" { return "" }
         if isPasswordValid() {
             return ""
         } else {
-            return "잘못된 형식의 비밀번호입니다."
+            return promptMessage.passwordFormatInvalid.rawValue
         }
     }
 
-    var passwordConfirmPrompt: String {
+    var passwordConfirmPrompt: String? {
         if user.value.passwordConfirm == "" { return "" }
         if isPasswordConfirmValid() {
             return ""
         } else {
-            return "잘못된 형식의 비밀번호입니다."
+            return promptMessage.passwordConfirmFormatInvalid.rawValue
         }
     }
 
-    var nicknamePrompt: String {
+    var nicknamePrompt: String? {
         if user.value.nickname == "" { return "" }
         if isNicknameValid() {
             return ""
         } else {
-            return "잘못된 형식의 닉네임입니다."
+            debugPrint("DEBUG - nicknameDuplicateMessage", nicknameDuplicateMessage)
+            return doesNicknameExist ? promptMessage.nicknameAlreadyExists.rawValue : promptMessage.nicknameFormatInvalid.rawValue
         }
     }
 
@@ -135,7 +164,7 @@ class RegisterViewModel {
     // MARK: - TextField Border Color
 
     var emailTextFieldBorderColor: CGColor {
-        if user.value.nickname == "" { return UIColor.gsDarkGray.cgColor }
+        if user.value.email == "" { return UIColor.gsDarkGray.cgColor }
         return isEmailValid() ? UIColor.gsLightGray.cgColor : UIColor.gsRed.cgColor
     }
 
@@ -180,16 +209,69 @@ class RegisterViewModel {
         self.termsOfService = Observable(false)
         self.privacyPolicy = Observable(false)
         self.eventReceive = Observable(false)
+        self.registerButton = Observable(false)
     }
 
-    // MARK: - sign up
-
-    func signUp() {
-        // 회원가입 후 값 초기화
+    private func resetValues() {
         self.user = Observable(UserRegisterData(email: "", password: "", passwordConfirm: "", nickname: ""))
 
         self.termsOfService = Observable(false)
         self.privacyPolicy = Observable(false)
         self.eventReceive = Observable(false)
+        self.registerButton = Observable(false)
     }
+
+    // MARK: - API
+
+    public func signUp(completion: @escaping (Result<Bool, APIError>) -> Void) {
+
+        let params = [
+            "email": user.value.email,
+            "nickname": user.value.nickname,
+            "passwd": user.value.password
+        ]
+
+        AuthService.shared.signUp(params: params) { response in
+
+            if response.value?.location != nil {
+                switch response.value?.location {
+                case "email":
+                    self.emailDuplicateMessage = response.value?.msg
+                    self.registerButton.value  = true
+                    self.emailDuplicateMessage = nil
+                case "nickname":
+                    self.nicknameDuplicateMessage = response.value?.msg
+                    self.registerButton.value  = true
+                    self.nicknameDuplicateMessage = nil
+                default:
+                    break
+                }
+            }
+            if response.response?.statusCode == 400 {
+                completion(.failure(APIError.invalidInput))
+                return
+            }
+            if let data = response.value {
+                completion(.success(true))
+                self.resetValues()
+                return
+            }
+        }
+    }
+
+    public func sendEmail(completion: @escaping (Result<Data, Error>) -> Void) {
+        let params = [
+            "email": user.value.email
+        ]
+
+        AuthService.shared.sendMail(params: params) { response in
+            switch response {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
 }
