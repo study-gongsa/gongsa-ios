@@ -149,6 +149,7 @@ class RegistrationViewController: UIViewController {
 
     // MARK: - Selectors
 
+    @available(iOS 13.0, *)
     @objc func handleRegistration() {
 
         // TODO: 유저 register 코드 -> ViewModel
