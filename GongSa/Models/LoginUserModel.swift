@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import UIKit
+
+
+struct UserLogin {
+    var email: String = ""
+    var password: String = ""
+}
+
 
 class LoginUserModel {
-    
-    struct User {
-        var email: String
-        var password: String
-    }
     
     // 아이디 형식 검사
     func isValidEmail(id: String) -> Bool {
@@ -20,7 +23,7 @@ class LoginUserModel {
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: id)
     }
-    
+
     // 비밀번호 형식 검사
     func isValidPassword(pwd: String) -> Bool {
         let passwordRegEx = "^([a-zA-Z0-9!@#$%^&amp;*()_+]{8,16})$"
