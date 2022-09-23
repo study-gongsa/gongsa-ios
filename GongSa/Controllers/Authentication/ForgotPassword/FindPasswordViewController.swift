@@ -21,7 +21,15 @@ class FindPasswordViewController: UIViewController {
 //        self.navigationController?.navigationItem.title = "hi"
         self.setUpView()
         self.setConstaints()
+        self.setDefault()
     }
+    
+    // 첫 기본 설정
+    func setDefault() {
+        self.okEmailBtn.isEnabled = false
+    }
+    
+    
     // 이메일 입력 안내 - label
     lazy var writeEmailLbl = UILabel().then {
         $0.backgroundColor = UIColor.white
@@ -62,13 +70,8 @@ class FindPasswordViewController: UIViewController {
         $0.layer.backgroundColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
         $0.layer.cornerRadius = 8
         $0.setTitle("확인", for: .normal)
+        $0.addTarget(self, action: #selector(goFindPassword), for: .touchUpInside)
     }
-//    // 로그인 button
-//    lazy var loginBtn = UIButton().then {
-//        $0.layer.backgroundColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
-//        $0.setTitle("로그인", for: .normal)
-//        $0.layer.cornerRadius = 8
-//    }
     
     func setUpView() {
         self.view.addSubview(self.writeEmailLbl) // 로그인
@@ -108,6 +111,7 @@ class FindPasswordViewController: UIViewController {
             $0.top.equalTo(emailTxtField.snp.bottom).offset(58)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
+            $0.height.height.equalTo(52)
         }
 //        // 로그인 버튼 - button
 //        self.loginBtn.snp.makeConstraints {
@@ -120,5 +124,15 @@ class FindPasswordViewController: UIViewController {
         
     }
     
+    // MARK: Event
+    
+    @objc func goFindPassword(sender: UIButton) {
+        print("비밀번호 찾기로 가자")
+        
+        
+        // 다음 화면으로 가기
+        self.navigationController?.pushViewController(FindPasswordLoadingView(), animated: true)
+        
+    }
     
 }

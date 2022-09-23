@@ -18,6 +18,7 @@
 		3BCF917328C66C990031F5B0 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF917228C66C990031F5B0 /* LoginDataManager.swift */; };
 		3BCF91B328C89EE30031F5B0 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF91B228C89EE30031F5B0 /* LoginService.swift */; };
 		3BCF91B528C9E1BD0031F5B0 /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF91B428C9E1BD0031F5B0 /* LoginDataModel.swift */; };
+		3BF46A3E28DD96C500D362CE /* FindPasswordLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF46A3D28DD96C500D362CE /* FindPasswordLoadingViewController.swift */; };
 		6D23C7C22898BEB200A0BC4E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D23C7C12898BEB200A0BC4E /* Utilities.swift */; };
 		6D23C7C42898BFB600A0BC4E /* UIView+CustomAutolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D23C7C32898BFB600A0BC4E /* UIView+CustomAutolayout.swift */; };
 		6D40B11928963EEB00ABD92A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D40B11828963EEB00ABD92A /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		3BCF917228C66C990031F5B0 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
 		3BCF91B228C89EE30031F5B0 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		3BCF91B428C9E1BD0031F5B0 /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
+		3BF46A3D28DD96C500D362CE /* FindPasswordLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordLoadingViewController.swift; sourceTree = "<group>"; };
 		6D23C7C12898BEB200A0BC4E /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		6D23C7C32898BFB600A0BC4E /* UIView+CustomAutolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CustomAutolayout.swift"; sourceTree = "<group>"; };
 		6D40B11528963EEB00ABD92A /* GongSa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GongSa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,15 @@
 				3BC0085328D2FBE600973E5D /* NetworkResult.swift */,
 			);
 			path = "Login-Network";
+			sourceTree = "<group>";
+		};
+		3BF46A3F28DD96CC00D362CE /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				3BCF916B28C1DC710031F5B0 /* FindPasswordViewController.swift */,
+				3BF46A3D28DD96C500D362CE /* FindPasswordLoadingViewController.swift */,
+			);
+			path = ForgotPassword;
 			sourceTree = "<group>";
 		};
 		6D40B10C28963EEB00ABD92A = {
@@ -222,9 +233,9 @@
 		6D52D67328965C0C00B1A73F /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				3BF46A3F28DD96CC00D362CE /* ForgotPassword */,
 				6DD7488428964C270000B288 /* LoginViewController.swift */,
 				6DD7488628964C8A0000B288 /* RegistrationViewController.swift */,
-				3BCF916B28C1DC710031F5B0 /* FindPasswordViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -447,6 +458,7 @@
 				3BC0085428D2FBE700973E5D /* NetworkResult.swift in Sources */,
 				3BCF916C28C1DC710031F5B0 /* FindPasswordViewController.swift in Sources */,
 				6D23C7C42898BFB600A0BC4E /* UIView+CustomAutolayout.swift in Sources */,
+				3BF46A3E28DD96C500D362CE /* FindPasswordLoadingViewController.swift in Sources */,
 				6DE5EC7F28A43E4B008E2A30 /* UIColor+CustomColor.swift in Sources */,
 				3BCF917028C66C820031F5B0 /* LoginResponse.swift in Sources */,
 				6D40B11B28963EEB00ABD92A /* SceneDelegate.swift in Sources */,
