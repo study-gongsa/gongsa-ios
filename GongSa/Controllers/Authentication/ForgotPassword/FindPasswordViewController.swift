@@ -27,6 +27,8 @@ class FindPasswordViewController: UIViewController {
     // 첫 기본 설정
     func setDefault() {
         self.okEmailBtn.isEnabled = false
+        self.emailTxtField.addTarget(self,
+                    action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     
@@ -63,6 +65,16 @@ class FindPasswordViewController: UIViewController {
         // left padding
         $0.setPadding(left: 16, right: 0)
     }
+    
+    lazy var emailDescriptionLbl = UILabel().then {
+        $0.backgroundColor = UIColor.white
+        $0.text = "이메일 입력 안내문"
+        
+        
+        
+    }
+    
+    
     
     lazy var okEmailBtn = UIButton().then {
         $0.frame = CGRect(x: 0, y: 0, width: 327, height: 52)
@@ -128,11 +140,53 @@ class FindPasswordViewController: UIViewController {
     
     @objc func goFindPassword(sender: UIButton) {
         print("비밀번호 찾기로 가자")
-        
-        
-        // 다음 화면으로 가기
+        // 먼저 다음 화면으로 가기 loading View
         self.navigationController?.pushViewController(FindPasswordLoadingView(), animated: true)
         
+        // 비밀번호 찾기 API
+        findPassword()
+        
     }
+    
+    func findPassword() {
+        // 비밀번호 찾기
+        PasswordService.shared.findPassword(email: self.emailTxtField.text!) { result in
+            switch result
+            {
+            case.success(_):
+                // 임시 비밀번호 이메일 보냄
+                print(" 비밀번호 찾기 이메일 보내기 성공")
+                // 성공했으니깐 로그인화면으로
+                self.navigationController?.popToRootViewController(animated: true)
+                
+                
+            case .requestErr(let msg):
+                print(" 비밀번호 찾기 error")
+                //실패했으니깐 다시 이메일 입력 화면으로
+                self.navigationController?.popViewController(animated: true)
+                
+                if let msg = msg as? String {
+                    DispatchQueue.main.async {
+                        self.emailDescriptionLbl.text = "\(msg)"
+                    }
+                }
+                
+            default:
+                print("error")
+            }
+            
+        }
+        
+    }
+    
+    @objc func textFieldDidChange(sender: UITextField) {
+        if sender.text?.isEmpty == true {
+            self.okEmailBtn.isEnabled = false
+        } else {
+            self.okEmailBtn.isEnabled = true
+        }
+    }
+    
+    
     
 }

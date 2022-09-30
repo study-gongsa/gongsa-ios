@@ -11,4 +11,12 @@ import UIKit
 
 class FindPasswordLoadingView: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        self.navigationItem.title = "이메일 인증"
+    }
+    
+    
+    
 }
