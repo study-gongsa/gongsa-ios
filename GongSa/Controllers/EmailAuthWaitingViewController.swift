@@ -10,12 +10,14 @@ import UIKit
 class EmailAuthWaitingViewController: UIViewController {
 
     // MARK: - Properties
+    public var emailAddress: String?
+
     private lazy var loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         indicator.color = .gray
         indicator.startAnimating()
         // wdt 209, hgt 100
-        indicator.transform = CGAffineTransform(scaleX: 5, y: 5)
+        indicator.transform = CGAffineTransform(scaleX: 4.5, y: 4.5)
         return indicator
     }()
 
@@ -44,10 +46,35 @@ class EmailAuthWaitingViewController: UIViewController {
         configureNavigationBar()
         configureUI()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-            self.navigationController?.pushViewController(EmailAuthCodeViewController(), animated: true)
-//              self.performSegue(withIdentifier: "leadingToTutorial", sender: self)
-         })
+        //         debug
+        sendMail { response in
+            switch response {
+            case .success(let response):
+                debugPrint("DEBUG - send mail success", response)
+                let emailViewController = EmailAuthCodeViewController()
+                emailViewController.emailAddress = self.emailAddress
+                self.navigationController?.pushViewController(emailViewController, animated: true)
+            case .failure(let error):
+                debugPrint("DEBUG - send mail error", error)
+            }
+        }
+    }
+
+    // MARK: - Helpers
+    private func sendMail(completion: @escaping (Result<Data, APIError>) -> Void) {
+        guard let emailAddress = self.emailAddress else {
+            completion(.failure(APIError.unableToSendMail))
+            return
+        }
+        let params = ["email": emailAddress]
+        AuthService.shared.sendMail(params: params) { response in
+            switch response {
+            case .success(let response):
+                completion(.success(response))
+            case .failure:
+                completion(.failure(APIError.unableToSendMail))
+            }
+        }
     }
 
     private func configureNavigationBar() {
@@ -62,26 +89,26 @@ class EmailAuthWaitingViewController: UIViewController {
         [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.gsBlack]
     }
 
-    // MARK: - Helpers
     private func configureUI() {
 
-        view.addSubview(loadingIndicator)
-        loadingIndicator.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 150, width: 150, height: 150)
+//        view.addSubview(loadingIndicator)
+//        loadingIndicator.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 150, width: 100, height: 100)
+//        loadingIndicator.center(inView: view, yConstant: -170)
 
-        let stackView = UIStackView(arrangedSubviews: [helpLabel, helpSubLabel])
+        let stackView = UIStackView(arrangedSubviews: [loadingIndicator, helpLabel, helpSubLabel])
         stackView.axis = .vertical
-//        stackView.distribution = .fillProportionally
+        stackView.distribution = .equalCentering
 
         view.addSubview(stackView)
-        stackView.anchor(top: loadingIndicator.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingBottom: 550)
+        stackView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: view.frame.height/5, paddingLeft: view.frame.width/4, width: 209, height: 168)// , paddingTop: 50, paddingBottom: 50)
 
-//        loadingIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
-//        helpLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-//        helpSubLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        loadingIndicator.setContentHuggingPriority(.defaultLow, for: .vertical)
+        helpLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        helpSubLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
-//        loadingIndicator.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
-        helpLabel.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
-
-        helpSubLabel.anchor(top: helpLabel.bottomAnchor, left: stackView.leftAnchor, bottom: stackView.bottomAnchor, right: stackView.rightAnchor)
+        //        loadingIndicator.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
+        loadingIndicator.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
+        helpLabel.anchor(top: loadingIndicator.bottomAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
+        helpSubLabel.anchor(top: helpLabel.bottomAnchor, left: stackView.leftAnchor, bottom: stackView.bottomAnchor, right: stackView.rightAnchor, paddingTop: 12)
     }
 }

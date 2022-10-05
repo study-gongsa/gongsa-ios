@@ -37,8 +37,9 @@ class EmailAuthDoneViewController: UIViewController {
     }()
 
     private lazy var startButton: UIButton = {
-        let button = UIButton.mainButton(withTitle: "시작하기")
+        let button = UIButton.main(withTitle: "시작하기")
         button.backgroundColor = .gsGreen
+        button.addTarget(self, action: #selector(startButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -51,6 +52,13 @@ class EmailAuthDoneViewController: UIViewController {
     }
 
     // MARK: - Selectors
+    @objc func startButtonTapped(_ sender: UIButton) {
+        if let loginVC = self.navigationController?.viewControllers
+            .filter({$0 is LoginViewController}) // 로그인 화면으로 변경 필요
+            .first {
+            self.navigationController?.popToViewController(loginVC, animated: true)
+        }
+    }
 
     // MARK: - Helpers
     private func configureUI() {
@@ -72,6 +80,7 @@ class EmailAuthDoneViewController: UIViewController {
                                          action: #selector(UINavigationController.popViewController(animated:)))
         backButton.tintColor = UIColor.gsLightGray
         navigationItem.leftBarButtonItem = backButton
+        navigationItem.backBarButtonItem?.customView?.isHidden = true
         self.navigationItem.title = "이메일 인증"
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.gsBlack]

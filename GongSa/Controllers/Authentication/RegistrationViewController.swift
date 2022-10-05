@@ -89,7 +89,7 @@ class RegistrationViewController: UIViewController {
     }()
 
     private lazy var eventReceiveContainerView: UIView = {
-        let view = Utilities().aggrementContainerView(checkbox: eventReceiveCheckbox, text: "이벤트 정보 수신 동의 (필수)", button: eventReceiveButton)
+        let view = Utilities().aggrementContainerView(checkbox: eventReceiveCheckbox, text: "이벤트 정보 수신 동의 (선택)", button: eventReceiveButton)
         return view
     }()
 
@@ -112,25 +112,25 @@ class RegistrationViewController: UIViewController {
     }()
 
     private let termsOfServiceButton: UIButton = {
-        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
+        let button = UIButton.underLined(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let privacyPolicyButton: UIButton = {
-        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
+        let button = UIButton.underLined(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private let eventReceiveButton: UIButton = {
-        let button = UIButton.underLinedButton(withText: "약관보기", withColor: UIColor.gsLightGray)
+        let button = UIButton.underLined(withText: "약관보기", withColor: UIColor.gsLightGray)
         button.addTarget(self, action: #selector(termsOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private lazy var registerButton: UIButton = {
-        let button = UIButton.mainButton(withTitle: "회원가입")
+        let button = UIButton.main(withTitle: "회원가입")
         button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         return button
     }()
@@ -143,6 +143,7 @@ class RegistrationViewController: UIViewController {
 
         configureNavigationBar()
         configureUI()
+        configureTextFieldDelegates()
 
         bindViewModel()
     }
@@ -151,10 +152,21 @@ class RegistrationViewController: UIViewController {
 
     @available(iOS 13.0, *)
     @objc func handleRegistration() {
-
+        //        self.registerViewModel.registerButton.value = true
         // TODO: 유저 register 코드 -> ViewModel
+        registerViewModel.signUp { response in
+            switch response {
+            case .success(let data):
+                debugPrint("DEBUG - signUp Success", data)
 
-        self.navigationController?.pushViewController(EmailAuthWaitingViewController(), animated: true) // waiting -> done
+                let emailViewController = EmailAuthWaitingViewController()
+                emailViewController.emailAddress = self.registerViewModel.user.value.email
+                self.navigationController?.pushViewController(emailViewController, animated: true)
+
+            case .failure(let error):
+                debugPrint("DEBUG - signUp Error", error)
+            }
+        }
 
         // MainTabViewController 가져와서 인증, UI 렌더링 후 dismiss
         //        let window: UIWindow
@@ -219,38 +231,39 @@ class RegistrationViewController: UIViewController {
     }
 
     // MARK: - Helpers
-    private func configureUI() {
+    private func configureTextFieldDelegates() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        passwordConfirmTextField.delegate = self
+        nicknameTextField.delegate = self
+    }
 
+    private func configureUI() {
         let authStack = UIStackView(arrangedSubviews: [emailContainerView,
                                                        passwordContainerView,
                                                        passwordConfirmContainerView,
                                                        nicknameContainerView])
+        view.addSubview(authStack)
         authStack.axis = .vertical
         authStack.spacing = 10
         authStack.distribution = .fillEqually
-
-        view.addSubview(authStack)
         authStack.anchor(top: view.topAnchor, left: view.leftAnchor,
-                         right: view.rightAnchor, paddingTop: 130,
+                         right: view.rightAnchor, paddingTop: 150,
                          paddingLeft: 24, paddingRight: 24)
 
         let agreementStack = UIStackView(arrangedSubviews: [termsOfServiceContainerView,
                                                             privacyPolicyContainerView,
                                                             eventReceiveContainerView])
-
+        view.addSubview(agreementStack)
         agreementStack.axis = .vertical
         agreementStack.distribution = .fillEqually
-
-        view.addSubview(agreementStack)
-        agreementStack.anchor(top: authStack.bottomAnchor, left: view.leftAnchor,
-                              right: view.rightAnchor, paddingTop: 30,
-                              paddingLeft: 24, paddingRight: 24)
+        agreementStack.anchor(top: authStack.bottomAnchor, left: authStack.leftAnchor,
+                              right: authStack.rightAnchor, paddingTop: 25)
 
         view.addSubview(registerButton)
-        registerButton.anchor(top: agreementStack.bottomAnchor, left: view.leftAnchor,
-                              bottom: view.bottomAnchor, right: view.rightAnchor,
-                              paddingTop: 51, paddingLeft: 24,
-                              paddingBottom: 50, paddingRight: 24)
+        registerButton.anchor(top: agreementStack.bottomAnchor, left: authStack.leftAnchor,
+                              bottom: view.bottomAnchor, right: authStack.rightAnchor,
+                              paddingTop: 40, paddingBottom: 70)
     }
 
     private func configureNavigationBar() {
@@ -267,6 +280,17 @@ class RegistrationViewController: UIViewController {
 
     // MARK: - TODO: 리팩토링
     private func bindViewModel() {
+
+        registerViewModel.registerButton.bind { _ in
+            self.emailTextField.layer.borderColor = self.registerViewModel.emailTextFieldBorderColor
+            self.emailError.text = self.registerViewModel.emailPrompt
+            self.emailError.isHidden = self.registerViewModel.hideEmailPrompt
+            print("DEBUG - VC", self.registerViewModel.doesEmailExist, self.registerViewModel.emailDuplicateMessage, self.registerViewModel.doesNicknameExist)
+
+            self.nicknameTextField.layer.borderColor = self.registerViewModel.nicknameTextFieldBorderColor
+            self.nicknameError.text = self.registerViewModel.nicknamePrompt
+            self.nicknameError.isHidden = self.registerViewModel.hideNicknamePrompt
+        }
 
         registerViewModel.user.bind { user in
             self.emailTextField.text = user.email
@@ -316,7 +340,21 @@ class RegistrationViewController: UIViewController {
     }
 
     private func toggleRegisterButton() {
-        self.registerButton.isEnabled = true // DEBUG -> org: false self.registerViewModel.shouldEnableRegisterButton
+        self.registerButton.isEnabled = self.registerViewModel.shouldEnableRegisterButton
         self.registerButton.backgroundColor = self.registerViewModel.registerButtonColor
+    }
+}
+
+extension RegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        passwordConfirmTextField.resignFirstResponder()
+        nicknameTextField.resignFirstResponder()
+        return true
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
