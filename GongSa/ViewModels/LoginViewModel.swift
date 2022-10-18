@@ -12,7 +12,7 @@ class LoginViewModel {
     
     //    private let loginManager: LoginManger
     private let loginManager : LoginManager
-    
+    static let shared = LoginManager()
     init(loginManager: LoginManager) {
         self.loginManager = loginManager
     }

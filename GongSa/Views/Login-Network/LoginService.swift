@@ -59,12 +59,12 @@ struct LoginService{
         
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode(LoginDataModel.self, from: data) else { return .pathErr}
+        guard let decodedData = try? decoder.decode(LoginResponse.self, from: data) else { return .pathErr}
         
         switch statusCode {
             
-        case 201: return .success(decodedData.location)
-        case 401: return .requestErr(decodedData.location)
+        case 201: return .success(decodedData.data) // 성공
+        case 401: return .requestErr(decodedData.msg) // 실패
             //        case 500: return .serverErr
         default: return .networkFail
         }
