@@ -12,7 +12,7 @@ class LoginViewModel {
     
     //    private let loginManager: LoginManger
     private let loginManager : LoginManager
-    static let shared = LoginManager()
+//    static let shared = LoginManager()
     init(loginManager: LoginManager) {
         self.loginManager = loginManager
     }
@@ -40,7 +40,7 @@ class LoginViewModel {
     
     
     func login() {
-        loginManager.loginWithUserInfos(email: email, password: password) { [weak self] (error) in
+        loginManager.loginWithUserInfos(email: email, passwd: passwd) { [weak self] (error) in
             guard let error = error else {
                 return
             }

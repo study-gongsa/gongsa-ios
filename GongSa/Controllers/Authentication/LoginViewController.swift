@@ -343,10 +343,22 @@ class LoginViewController: UIViewController {
     
     func loginAction()
     {
-        LoginService.shared.login(email: self.emailTxtField.text!, password: self.pwTxtField.text!) { result in
+        LoginService.shared.login(email: self.emailTxtField.text!, passwd: self.pwTxtField.text!) { result in
             switch result
             {
-            case .success(let location):
+            case .success(let data):
+                
+                // 토큰 정보저장
+                if let userData = data as? LoginResponse {
+                    
+                    let accessToken = userData.data.accessToken
+                    let refreshToken = userData.data.refreshToken
+                    print("accessToken: ",accessToken, "  ***refresh: ", refreshToken)
+                    let tk = TokenUtils()
+                    tk.create(" ", account: "accessToken", value: accessToken)
+                    tk.create(" ", account: "refreshToken", value: refreshToken)
+                    
+                }
                 // 로그인 성공 -> 메인화면으로 가기
                 self.navigationController?.pushViewController(MainTabViewController(), animated: true)
                 

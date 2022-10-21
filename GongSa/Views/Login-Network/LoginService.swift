@@ -13,21 +13,21 @@ struct LoginService{
     // 여러 VC에서도 shared로 접근하면 같은 인스턴스에 접근할 수 있는 형태
     static let shared = LoginService()
     
-    private func makeParameter(email : String, password : String) -> Parameters
+    private func makeParameter(email : String, passwd : String) -> Parameters
     {
         return ["email" : email,
-                "password" : password]
+                "passwd" : passwd]
     }
     
     func login(email : String,
-               password : String,
+               passwd : String,
                completion : @escaping (NetworkResult<Any>) -> Void)
     {
         let header : HTTPHeaders = ["Content-Type": "application/json"]
         let URL = "http://3.36.170.161:8080/api/user/login"
         let dataRequest = AF.request(URL,
                                      method: .post,
-                                     parameters: makeParameter(email: email, password: password),
+                                     parameters: makeParameter(email: email, passwd: passwd),
                                      encoding: JSONEncoding.default,
                                      headers: header)
         
@@ -64,7 +64,7 @@ struct LoginService{
         switch statusCode {
             
         case 201: return .success(decodedData.data) // 성공
-        case 401: return .requestErr(decodedData.msg) // 실패
+        case 401: return .requestErr(decodedData.data) // 실패
             //        case 500: return .serverErr
         default: return .networkFail
         }
