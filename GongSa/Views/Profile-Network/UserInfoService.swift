@@ -13,22 +13,22 @@ struct UserInfoService{
     // 여러 VC에서도 shared로 접근하면 같은 인스턴스에 접근할 수 있는 형태
     static let shared = UserInfoService()
     
-//    private func makeParameter(email : String, passwd : String) -> Parameters
-//    {
-//        return ["email" : email,
-//                "passwd" : passwd]
-//    }
+    //    private func makeParameter(email : String, passwd : String) -> Parameters
+    //    {
+    //        return ["email" : email,
+    //                "passwd" : passwd]
+    //    }
     
-//    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
+    //    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
     let headers: HTTPHeaders = [
         "Accept": "application/json",
         "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY2Njk0MTkxOSwiZXhwIjoxNjY5NTMzOTE5LCJ1c2VyVUlEIjo3NSwidXNlckF1dGhVSUQiOjg5Mn0.URzEhFUNTPRySZ9uFrBFKEgGA1JgW0VMaSaCu7wugWc"]
-  
+    
     
     func getUserInfo(completion : @escaping (NetworkResult<Any>) -> Void)
     {
         
-//        let header : HTTPHeaders = ["Content-Type": "application/json"]
+        //        let header : HTTPHeaders = ["Content-Type": "application/json"]
         let URL = "http://3.36.170.161:8080/api/user/mypage"
         let dataRequest = AF.request(URL,
                                      method: .get,
@@ -41,7 +41,7 @@ struct UserInfoService{
             dump(dataResponse)
             
             switch dataResponse.result {
-            // 통신 성공
+                // 통신 성공
             case .success:
                 // dataResponse.statusCode 는 Response의 statuscode
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -52,8 +52,8 @@ struct UserInfoService{
                 // judgeStatus에 statuscode와 value(결과 데이터) 실어서 보냄
                 let networkResult = self.judgeStatus(by: statusCode, value)
                 completion(networkResult)
-            // 통신 실패의 경우 completion에 pathErr값을 담아서 뷰컨으로 날려주기
-            // 타임아웃 / 통신 불가능의 상태로 통신 자체에 실패한 경우
+                // 통신 실패의 경우 completion에 pathErr값을 담아서 뷰컨으로 날려주기
+                // 타임아웃 / 통신 불가능의 상태로 통신 자체에 실패한 경우
             case .failure: completion(.pathErr)
                 guard (dataResponse.response?.statusCode) != nil else {return}
             }
@@ -76,3 +76,4 @@ struct UserInfoService{
         }
     }
     
+}
