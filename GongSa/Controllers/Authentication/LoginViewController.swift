@@ -346,17 +346,18 @@ class LoginViewController: UIViewController {
         LoginService.shared.login(email: self.emailTxtField.text!, passwd: self.pwTxtField.text!) { result in
             switch result
             {
-            case .success(let data):
+            case.success(let userdata):
+                print("로그인 통신 성공")
                 
-                // 토큰 정보저장
-                if let userData = data as? LoginResponse {
+                if let data = userdata as? LoginDataClass {
                     
-                    let accessToken = userData.data.accessToken
-                    let refreshToken = userData.data.refreshToken
-                    print("accessToken: ",accessToken, "  ***refresh: ", refreshToken)
-                    let tk = TokenUtils()
-                    tk.create(" ", account: "accessToken", value: accessToken)
-                    tk.create(" ", account: "refreshToken", value: refreshToken)
+                    let accessToken = data.accessToken
+                    let refreshToken = data.refreshToken
+                    
+                    // keychain 저장
+                    KeyChain.shared.create(key: "accessToken", token: accessToken)
+                    KeyChain.shared.create(key: "refreshToken", token: refreshToken)
+                    print("Keychain 토큰 저장 성공")
                     
                 }
                 // 로그인 성공 -> 메인화면으로 가기
@@ -380,6 +381,7 @@ class LoginViewController: UIViewController {
         }
         
     }
+    
     func highlightTextField(_ textField: UITextField) {
         textField.resignFirstResponder()
         textField.layer.borderWidth = 1.0
