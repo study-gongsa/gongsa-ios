@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - PasswordRequest
-struct PasswordRequest: Codable {
-    let email: String
+// MARK: - PasswordResponse
+struct PasswordResponse: Codable {
+    let location, msg, data: String?
 }
