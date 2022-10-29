@@ -20,9 +20,6 @@
 		3BCF91B328C89EE30031F5B0 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF91B228C89EE30031F5B0 /* LoginService.swift */; };
 		3BCF91B528C9E1BD0031F5B0 /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF91B428C9E1BD0031F5B0 /* LoginDataModel.swift */; };
 		3BD967F2290BCEB7009C23AF /* StudylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD967F1290BCEB7009C23AF /* StudylistTableViewCell.swift */; };
-		3BDE156A290D8E2B002DD661 /* UserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE1569290D8E2A002DD661 /* UserInfoResponse.swift */; };
-		3BDE156C290D8E35002DD661 /* UserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE156B290D8E35002DD661 /* UserInfoRequest.swift */; };
-		3BDE156E290D8E40002DD661 /* UserInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE156D290D8E40002DD661 /* UserInfoService.swift */; };
 		3BDFDB7B28E59D0800316625 /* PasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFDB7A28E59D0800316625 /* PasswordRequest.swift */; };
 		3BDFDB7D28E59D1400316625 /* PasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFDB7C28E59D1400316625 /* PasswordResponse.swift */; };
 		3BDFDC0628E6BF2C00316625 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFDC0528E6BF2C00316625 /* PasswordService.swift */; };
@@ -73,9 +70,6 @@
 		3BCF91B228C89EE30031F5B0 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		3BCF91B428C9E1BD0031F5B0 /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
 		3BD967F1290BCEB7009C23AF /* StudylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudylistTableViewCell.swift; sourceTree = "<group>"; };
-		3BDE1569290D8E2A002DD661 /* UserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponse.swift; sourceTree = "<group>"; };
-		3BDE156B290D8E35002DD661 /* UserInfoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRequest.swift; sourceTree = "<group>"; };
-		3BDE156D290D8E40002DD661 /* UserInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoService.swift; sourceTree = "<group>"; };
 		3BDFDB7A28E59D0800316625 /* PasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRequest.swift; sourceTree = "<group>"; };
 		3BDFDB7C28E59D1400316625 /* PasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResponse.swift; sourceTree = "<group>"; };
 		3BDFDC0528E6BF2C00316625 /* PasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
@@ -159,16 +153,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		3BDE1568290D8E08002DD661 /* Profile-Network */ = {
-			isa = PBXGroup;
-			children = (
-				3BDE1569290D8E2A002DD661 /* UserInfoResponse.swift */,
-				3BDE156B290D8E35002DD661 /* UserInfoRequest.swift */,
-				3BDE156D290D8E40002DD661 /* UserInfoService.swift */,
-			);
-			path = "Profile-Network";
-			sourceTree = "<group>";
-		};
 		3BDFDB7928E5786E00316625 /* Password-Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +223,6 @@
 		6D40B12D2896401300ABD92A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3BDE1568290D8E08002DD661 /* Profile-Network */,
 				3BCF917128C66C860031F5B0 /* Login-Network */,
 			);
 			path = Views;
@@ -497,7 +480,6 @@
 				3BF237C12900568B005A49D9 /* LoginManager.swift in Sources */,
 				6D52D6672896563600B1A73F /* SearchGroupViewController.swift in Sources */,
 				6DD7488928964C960000B288 /* MainTabViewController.swift in Sources */,
-				3BDE156E290D8E40002DD661 /* UserInfoService.swift in Sources */,
 				6DA2FFD2289AA84B0025110D /* TermsOfServicesViewController.swift in Sources */,
 				3BDFDB7B28E59D0800316625 /* PasswordRequest.swift in Sources */,
 				6DE5EC8128A43E57008E2A30 /* UIFont+CustomFont.swift in Sources */,
@@ -521,8 +503,6 @@
 				3BDFDB7D28E59D1400316625 /* PasswordResponse.swift in Sources */,
 				3BCF916C28C1DC710031F5B0 /* FindPasswordViewController.swift in Sources */,
 				6D23C7C42898BFB600A0BC4E /* UIView+CustomAutolayout.swift in Sources */,
-				3BDE156A290D8E2B002DD661 /* UserInfoResponse.swift in Sources */,
-				3BDE156C290D8E35002DD661 /* UserInfoRequest.swift in Sources */,
 				3BF46A3E28DD96C500D362CE /* FindPasswordLoadingViewController.swift in Sources */,
 				6DE5EC7F28A43E4B008E2A30 /* UIColor+CustomColor.swift in Sources */,
 				3BD967F2290BCEB7009C23AF /* StudylistTableViewCell.swift in Sources */,
