@@ -14,10 +14,11 @@ struct UserInfoService{
     static let shared = UserInfoService()
     
 //    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
-    // TODO: 키체인 추가
+    // TODO: 키체인 추가 - done
+    // TODO: 키체인 optional 처리
     let headers: HTTPHeaders = [
         "Accept": "application/json",
-        "Authorization" : "Bearer + 나중에 keychain 추가"]
+        "Authorization" : "Bearer \(String(describing: KeyChain.shared.read(key: "accessToken")))"]
   
     
     func getUserInfo(completion : @escaping (NetworkResult<Any>) -> Void)
