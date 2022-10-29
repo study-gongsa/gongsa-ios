@@ -22,7 +22,7 @@ struct UserInfoService{
     //    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
     let headers: HTTPHeaders = [
         "Accept": "application/json",
-        "Authorization" : "Bearer + 나중에 여기 다시 구현"]
+        "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY2Njk0MTkxOSwiZXhwIjoxNjY5NTMzOTE5LCJ1c2VyVUlEIjo3NSwidXNlckF1dGhVSUQiOjg5Mn0.URzEhFUNTPRySZ9uFrBFKEgGA1JgW0VMaSaCu7wugWc"]
     
     
     func getUserInfo(completion : @escaping (NetworkResult<Any>) -> Void)
