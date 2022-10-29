@@ -177,7 +177,43 @@ class ProfileViewController: UIViewController {
         setUIView()
         configure()
         setConstraints()
+        bringProfile()
         
+    }
+    
+    // MARK: - NetWork
+    func bringProfile() {
+        UserInfoService.shared.getUserInfo() { result in
+            switch result
+            {
+            case .success(let userinfo):
+                print("Mypage 통신 성공")
+                // 유저 정보 조회 성공
+                
+                print(userinfo)
+                if let data = userinfo as? UserDataClass {
+                    print("Mypage 정보 로딩 성공")
+                    // 닉네임
+                    self.nameLbl.text = data.nickname
+                    // 누적 공부 시간
+                    self.timeLbl.text = data.totalStudyTime
+                    self.levelLbl.text = String(data.level)
+                    self.rankLbl.text = String(data.percentage)
+                    // 이미지 처리
+                    // data.imgPath
+                }
+                
+            case .requestErr(let msg):
+                // 로그인 실패
+                if let msg = msg as? String{
+                    
+                    print("마이페이지 통신 에러", "\(msg)")
+                    // 나중에 다시 팝업 창 뜨게 하기
+                }
+            default :
+                print("DEFAULT ERROR")
+            }
+        }
     }
     
     // MARK: Configure
