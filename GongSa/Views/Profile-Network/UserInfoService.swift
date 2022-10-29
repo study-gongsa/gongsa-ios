@@ -14,6 +14,7 @@ struct UserInfoService{
     static let shared = UserInfoService()
     
 //    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
+    // TODO: 키체인 추가
     let headers: HTTPHeaders = [
         "Accept": "application/json",
         "Authorization" : "Bearer + 나중에 keychain 추가"]

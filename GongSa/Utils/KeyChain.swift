@@ -9,8 +9,12 @@ import Foundation
 import Security
 
 class KeyChain {
+    
+    static let shared = KeyChain()
+    private init() {}
+    
     // Create
-    class func create(key: String, token: String) {
+     func create(key: String, token: String) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key,   // 저장할 Account
@@ -23,7 +27,7 @@ class KeyChain {
     }
     
     // Read
-    class func read(key: String) -> String? {
+     func read(key: String) -> String? {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key,
@@ -46,7 +50,7 @@ class KeyChain {
     }
     
     // Delete
-    class func delete(key: String) {
+     func delete(key: String) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key
