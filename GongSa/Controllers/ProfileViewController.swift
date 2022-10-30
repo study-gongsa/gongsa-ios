@@ -52,21 +52,21 @@ class ProfileViewController: UIViewController {
         $0.textColor = UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 14)
     }
-    
+    // 레벨 Label
     lazy var levelLbl = UILabel().then {
         $0.text = "레벨 7"
         $0.backgroundColor = .white
         $0.textColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Bold", size: 14)
     }
-    
+    // 상위 % Label
     lazy var rankLbl = UILabel().then {
         $0.text = "상위 1%"
         $0.backgroundColor = .white
         $0.textColor = UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 14)
     }
-    
+    // Q&A 버튼
     lazy var qaBtn = UIButton().then {
         $0.backgroundColor = .white
         $0.setTitleColor(.black, for: .normal)
@@ -92,7 +92,7 @@ class ProfileViewController: UIViewController {
         $0.tintColor = .darkGray
         $0.frame = CGRect(x: 0, y: 0, width: 17.2, height: 18.33)
     }
-    
+    // 하단 스터디목록 TableView
     var studylistTableView = UITableView().then {
         
         $0.register(StudylistTableViewCell.self, forCellReuseIdentifier: StudylistTableViewCell.identifier)
