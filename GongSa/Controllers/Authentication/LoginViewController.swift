@@ -336,7 +336,7 @@ class LoginViewController: UIViewController {
     }
     
     func login() {
-        loginViewModel.login()
+//        loginViewModel.login() // 나중에 이거 다시 디자인 패턴에 맞게 하면 될듯
         loginAction()
         
     }
