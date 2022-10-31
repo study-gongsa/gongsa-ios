@@ -16,7 +16,7 @@ class StudylistTableViewCell: UITableViewCell {
     static let identifier = "StudylistCell"
     
     private let containerView = UIView().then {
-        $0.backgroundColor = .red
+        $0.backgroundColor = .white
     }
     
     // MARK: Cell UI
