@@ -70,12 +70,9 @@ class ProfileViewController: UIViewController {
     lazy var qaBtn = UIButton().then {
         $0.backgroundColor = .white
         $0.setTitleColor(.black, for: .normal)
-        
-        //        $0.frame.size.height = 28
-        //        $0.frame.size.width = 49
         $0.frame = CGRect(x: 0, y: 0, width: 49, height: 28)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        $0.layer.cornerRadius = 20
+        $0.layer.cornerRadius = 15
         $0.layer.borderColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
         $0.layer.borderWidth = 1
         $0.setTitle(" Q&A ", for: .normal)
@@ -152,11 +149,15 @@ class ProfileViewController: UIViewController {
         self.qaBtn.snp.makeConstraints {
             $0.top.equalToSuperview().offset(84)
             $0.trailing.equalTo(profileImgView.snp.trailing).offset(194)
+            $0.width.equalTo(17.2)
+            $0.height.equalTo(18.33)
         }
         // 톱니바퀴 Button
         self.settingBtn.snp.makeConstraints {
             $0.top.equalToSuperview().offset(71.83)
             $0.trailing.equalToSuperview().offset(-25.4)
+            $0.width.equalTo(17.2)
+            $0.height.equalTo(18.33)
         }
         // 스터디 그룹 리스트 TableView
         self.studylistTableView.snp.makeConstraints {
@@ -222,7 +223,16 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    func getStudyGroups() {
+        
+        
+        
+    }
+    
     // MARK: - Selectors
+    
+    // 톱니바퀴 버튼
+    
     
     // MARK: - Helpers
 } //  end of the class
