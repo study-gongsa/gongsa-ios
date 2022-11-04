@@ -148,7 +148,8 @@ class ProfileViewController: UIViewController {
         
         self.qaBtn.snp.makeConstraints {
             $0.top.equalTo(settingBtn.snp.bottom).offset(33.83)
-            $0.leading.equalTo(rankLbl.snp.trailing).offset(84)
+//            $0.leading.equalTo(rankLbl.snp.trailing).offset(84)
+            $0.trailing.equalToSuperview().offset(-24)
             $0.width.equalTo(49)
             $0.height.equalTo(28)
         }
