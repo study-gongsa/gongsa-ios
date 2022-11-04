@@ -147,10 +147,10 @@ class ProfileViewController: UIViewController {
         }
         
         self.qaBtn.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(84)
-            $0.trailing.equalTo(profileImgView.snp.trailing).offset(194)
-            $0.width.equalTo(17.2)
-            $0.height.equalTo(18.33)
+            $0.top.equalTo(settingBtn.snp.bottom).offset(33.83)
+            $0.leading.equalTo(rankLbl.snp.trailing).offset(84)
+            $0.width.equalTo(49)
+            $0.height.equalTo(28)
         }
         // 톱니바퀴 Button
         self.settingBtn.snp.makeConstraints {
@@ -189,6 +189,7 @@ class ProfileViewController: UIViewController {
     }
     
     // MARK: - Network
+    // 유저 정보 가져오기
     func bringProfile() {
         UserInfoService.shared.getUserInfo() { result in
             switch result
@@ -222,7 +223,7 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
+    // 유저 가입한 스터디 그룹 가져오기
     func getStudyGroups() {
         
         
