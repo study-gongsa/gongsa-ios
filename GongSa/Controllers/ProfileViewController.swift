@@ -179,7 +179,7 @@ class ProfileViewController: UIViewController {
         setUIView()
         configure()
         setConstraints()
-        
+        bringProfile()
     }
     
     // MARK: Configure
@@ -199,17 +199,21 @@ class ProfileViewController: UIViewController {
                 print("Mypage 통신 성공")
                 // 유저 정보 조회 성공
                 
-                print(userinfo)
                 if let data = userinfo as? UserDataClass {
                     print("Mypage 정보 로딩 성공")
                     // 닉네임
                     self.nameLbl.text = data.nickname
                     // 누적 공부 시간
                     self.timeLbl.text = data.totalStudyTime
-                    self.levelLbl.text = String(data.level)
-                    self.rankLbl.text = String(data.percentage)
-                    // 이미지 처리
-                    // data.imgPath
+                    // 레벨 - LV.4
+                    self.levelLbl.text = "LV." + String(data.level)
+                    // 랭크 - 상위 1%
+                    self.rankLbl.text = "상위 "+String(data.percentage) + "%"
+                    // 이미지
+                    let img = data.imgPath
+                    let url = URL(string: "http://3.36.170.161:8080/api/image/\(img)")
+                    self.profileImgView.load(url: url!)
+                    
                 }
                 
             case .requestErr(let msg):
