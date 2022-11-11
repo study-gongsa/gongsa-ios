@@ -15,6 +15,10 @@
 		3B906E2B291E05EA007C2428 /* StudyGroupListsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E2A291E05EA007C2428 /* StudyGroupListsResponse.swift */; };
 		3B906E2D291E060C007C2428 /* StudyGroupListsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E2C291E060C007C2428 /* StudyGroupListsService.swift */; };
 		3B906E30291E09B6007C2428 /* Studyroom_QAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E2F291E09B6007C2428 /* Studyroom_QAViewController.swift */; };
+		3B906E32291E0AE8007C2428 /* Profile_QAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E31291E0AE8007C2428 /* Profile_QAViewController.swift */; };
+		3B906E38291E2CDD007C2428 /* MyQuestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E37291E2CDC007C2428 /* MyQuestionsTableViewCell.swift */; };
+		3B906E40291EA034007C2428 /* MyQuestionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E3F291EA034007C2428 /* MyQuestionsResponse.swift */; };
+		3B906E42291EA058007C2428 /* MyQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B906E41291EA058007C2428 /* MyQuestionsService.swift */; };
 		3BBF59EA28ACD35100765AF9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF59E928ACD35100765AF9 /* LoginViewModel.swift */; };
 		3BBF59F628AE9ADF00765AF9 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */; };
 		3BC0085428D2FBE700973E5D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC0085328D2FBE600973E5D /* NetworkResult.swift */; };
@@ -73,6 +77,10 @@
 		3B906E2A291E05EA007C2428 /* StudyGroupListsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupListsResponse.swift; sourceTree = "<group>"; };
 		3B906E2C291E060C007C2428 /* StudyGroupListsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupListsService.swift; sourceTree = "<group>"; };
 		3B906E2F291E09B6007C2428 /* Studyroom_QAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Studyroom_QAViewController.swift; sourceTree = "<group>"; };
+		3B906E31291E0AE8007C2428 /* Profile_QAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile_QAViewController.swift; sourceTree = "<group>"; };
+		3B906E37291E2CDC007C2428 /* MyQuestionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionsTableViewCell.swift; sourceTree = "<group>"; };
+		3B906E3F291EA034007C2428 /* MyQuestionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionsResponse.swift; sourceTree = "<group>"; };
+		3B906E41291EA058007C2428 /* MyQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionsService.swift; sourceTree = "<group>"; };
 		3BBF59E928ACD35100765AF9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
 		3BC0085328D2FBE600973E5D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -161,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				3B2D19AB2913A19C00E432D2 /* Studyroom_StudyingMembersCollectionViewCell.swift */,
+				3B906E37291E2CDC007C2428 /* MyQuestionsTableViewCell.swift */,
 			);
 			path = StudyRoom;
 			sourceTree = "<group>";
@@ -169,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				3B906E25291E0170007C2428 /* Profile_SettingViewController.swift */,
+				3B906E31291E0AE8007C2428 /* Profile_QAViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -201,6 +211,15 @@
 			path = Ch_Network;
 			sourceTree = "<group>";
 		};
+		3B906E3E291E9FEB007C2428 /* MyQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				3B906E3F291EA034007C2428 /* MyQuestionsResponse.swift */,
+				3B906E41291EA058007C2428 /* MyQuestionsService.swift */,
+			);
+			path = MyQuestion;
+			sourceTree = "<group>";
+		};
 		3BCF917128C66C860031F5B0 /* Login-Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +244,7 @@
 		3BDE1578290D9573002DD661 /* Profile-Network */ = {
 			isa = PBXGroup;
 			children = (
+				3B906E3E291E9FEB007C2428 /* MyQuestion */,
 				3B906E28291E05C0007C2428 /* StudygroupList */,
 				3B906E27291E05B1007C2428 /* UserInfo */,
 			);
@@ -558,14 +578,17 @@
 			files = (
 				6D52D66C289656AF00B1A73F /* GroupListViewController.swift in Sources */,
 				3BF237C12900568B005A49D9 /* LoginManager.swift in Sources */,
+				3B906E40291EA034007C2428 /* MyQuestionsResponse.swift in Sources */,
 				6D52D6672896563600B1A73F /* SearchGroupViewController.swift in Sources */,
 				6DD7488928964C960000B288 /* MainTabViewController.swift in Sources */,
 				6DA2FFD2289AA84B0025110D /* TermsOfServicesViewController.swift in Sources */,
+				3B906E42291EA058007C2428 /* MyQuestionsService.swift in Sources */,
 				3BDFDB7B28E59D0800316625 /* PasswordRequest.swift in Sources */,
 				6DE5EC8128A43E57008E2A30 /* UIFont+CustomFont.swift in Sources */,
 				3BE1C49B290272D1005904B3 /* KeyChain.swift in Sources */,
 				6DD7488528964C270000B288 /* LoginViewController.swift in Sources */,
 				6DA2FFCE289A7FC90025110D /* Observable.swift in Sources */,
+				3B906E38291E2CDD007C2428 /* MyQuestionsTableViewCell.swift in Sources */,
 				3BCF91B328C89EE30031F5B0 /* LoginService.swift in Sources */,
 				3B906E30291E09B6007C2428 /* Studyroom_QAViewController.swift in Sources */,
 				6D40B11928963EEB00ABD92A /* AppDelegate.swift in Sources */,
@@ -594,6 +617,7 @@
 				6DE5EC7F28A43E4B008E2A30 /* UIColor+CustomColor.swift in Sources */,
 				3BD967F2290BCEB7009C23AF /* StudylistTableViewCell.swift in Sources */,
 				3B2EB41228FB2D30000B3EEC /* StudyRoomViewController.swift in Sources */,
+				3B906E32291E0AE8007C2428 /* Profile_QAViewController.swift in Sources */,
 				3BCF917028C66C820031F5B0 /* LoginResponse.swift in Sources */,
 				3B2D19AC2913A19C00E432D2 /* Studyroom_StudyingMembersCollectionViewCell.swift in Sources */,
 				6D40B11B28963EEB00ABD92A /* SceneDelegate.swift in Sources */,
