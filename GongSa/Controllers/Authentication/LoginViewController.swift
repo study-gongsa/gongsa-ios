@@ -11,53 +11,52 @@ import SwiftUI
 import Then
 
 // MARK: - Canvas
-// @available(iOS 13.0, *)
-// struct ViewControllerRepresentable: UIViewControllerRepresentable {
-//    typealias UIViewControllerType = LoginViewController
-//
-//    func makeUIViewController(context: Context) -> LoginViewController {
-//        return LoginViewController()
-//    }
-//
-//    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {
-//    }
-//
-// }
-//
-// @available(iOS 13.0.0, *)
-// struct ViewPreview: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ViewControllerRepresentable()
-//            ViewControllerRepresentable()
-//        }
-//    }
-// }
+@available(iOS 13.0, *)
+struct ViewControllerRepresentable: UIViewControllerRepresentable {
+    typealias UIViewControllerType = LoginViewController
+    
+    func makeUIViewController(context: Context) -> LoginViewController {
+        return LoginViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {
+    }
+    
+}
+
+@available(iOS 13.0.0, *)
+struct ViewPreview: PreviewProvider {
+    static var previews: some View {
+        ViewControllerRepresentable()
+    }
+}
 
 class LoginViewController: UIViewController {
-
-//    private loginManager: LoginManager
-
+    
+    //    private loginManager: LoginManager
     // MARK: - Properties
+    
+    var loginViewModel: LoginViewModel!
+    
     // 로그인 라벨
     lazy var titleLbl = UILabel().then {
-
+        
         $0.backgroundColor = UIColor.clear
         $0.text = "로그인"
         $0.textColor = UIColor.black
         $0.font = UIFont(name: "Pretendard-Bold", size: 20)
         // text 정렬
         $0.textAlignment = .center
-
+        
     }
     // 이메일 주소 -Label
     lazy var emailLbl: UILabel = {
-       let lbl = UILabel()
+        let lbl = UILabel()
         lbl.backgroundColor = UIColor.clear
         lbl.text = "이메일 주소"
         lbl.textColor = UIColor(red: 0.41, green: 0.41, blue: 0.41, alpha: 1)
         lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
-
+        
         // 정렬
         lbl.textAlignment = NSTextAlignment.left
         return lbl
@@ -82,16 +81,16 @@ class LoginViewController: UIViewController {
         $0.backgroundColor = UIColor.clear
         $0.textColor = UIColor(red: 1, green: 0.4, blue: 0.4, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 12)
-
+        
     }
     // 비밀번호 - label
     lazy var pwLbl: UILabel = {
-       let lbl = UILabel()
+        let lbl = UILabel()
         lbl.backgroundColor = UIColor.white
         lbl.text = "비밀번호"
         lbl.textColor = UIColor(red: 0.41, green: 0.41, blue: 0.41, alpha: 1)
         lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
-
+        
         // 정렬
         lbl.textAlignment = NSTextAlignment.left
         return lbl
@@ -102,7 +101,7 @@ class LoginViewController: UIViewController {
         $0.backgroundColor = UIColor.clear
         $0.textColor = UIColor(red: 1, green: 0.4, blue: 0.4, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 12)
-
+        
     }
     // 비밀번호 입력 - textfield
     lazy var pwTxtField = UITextField().then {
@@ -114,7 +113,7 @@ class LoginViewController: UIViewController {
         $0.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
         $0.frame = CGRect(x: 0, y: 0, width: 327, height: 47)
         $0.font = UIFont(name: "Pretendard-Medium", size: 16)
-
+        
         // left padding
         $0.setPadding(left: 16, right: 0)
     }
@@ -130,7 +129,7 @@ class LoginViewController: UIViewController {
         $0.backgroundColor = UIColor.white
         $0.textColor = UIColor(red: 0.41, green: 0.41, blue: 0.41, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 14)
-
+        
     }
     // 회원가입 button
     lazy var createAccountBtn = UIButton().then {
@@ -138,11 +137,6 @@ class LoginViewController: UIViewController {
         $0.setTitleColor(UIColor.gsLightGray, for: .normal)
         $0.setTitle("회원가입", for: .normal)
         $0.setUnderline()
-        $0.addTarget(self, action: #selector(createAccountBtnTapped), for: .touchUpInside)
-        // temp
-        let attributedString = NSAttributedString(string: "회원가입", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 14, family: .medium) ])
-        $0.setAttributedTitle(attributedString, for: .normal)
-
     }
     // 비밀번호 찾기 label
     lazy var forgetpwLbl = UILabel().then {
@@ -150,7 +144,7 @@ class LoginViewController: UIViewController {
         $0.backgroundColor = UIColor.white
         $0.textColor = UIColor(red: 0.41, green: 0.41, blue: 0.41, alpha: 1)
         $0.font = UIFont(name: "Pretendard-Medium", size: 14)
-
+        
     }
     // 비밀번호 찾기 button
     lazy var forgetPwBtn = UIButton().then {
@@ -178,21 +172,21 @@ class LoginViewController: UIViewController {
         self.view.addSubview(self.forgetpwLbl) // 비밀번호 찾기
         self.view.addSubview(self.forgetPwBtn)
     }
-
+    
     // Constraints
     func setConstraints() {
         // 맨위 로그인 라벨
         self.titleLbl.snp.makeConstraints {
             $0.top.equalToSuperview().offset(6)
             $0.left.centerX.equalToSuperview()
-
+            
         }
         // 이메일 주소 입력 - label
         self.emailLbl.snp.makeConstraints {
             $0.top.equalTo(titleLbl.snp.bottom).offset(60)
             $0.leading.trailing.equalToSuperview().offset(24)
         }
-
+        
         // 이메일 입력 - textfield
         self.emailTxtField.snp.makeConstraints {
             $0.top.equalTo(emailLbl.snp.bottom).offset(8)
@@ -224,7 +218,7 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(pwTxtField.snp.bottom).offset(4)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.lessThanOrEqualToSuperview()
-
+            
         }
         // 로그인 버튼 - button
         self.loginBtn.snp.makeConstraints {
@@ -232,8 +226,6 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(pwTxtField.snp.bottom).offset(52)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.height.equalTo(52).constraint
-
         }
         // 회원가입 - label
         self.createAccountLbl.snp.makeConstraints {
@@ -261,22 +253,60 @@ class LoginViewController: UIViewController {
         pwTxtField.delegate = self
         emailTxtField.delegate = self
     }
-    // MARK: - Lifecycle
-
+    
+    func setDefault() {
+        pwInfoLbl.isHidden = true
+        emailInfoLbl.isHidden = true
+    }
+    // MARK: - ViewDidLpad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
         self.setConstraints()
         self.setDelegate()
-        loginBtn.addTarget(self, action: #selector(goLogin), for: .touchUpInside)
-        emailTxtField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
+        self.setDefault() // infoLabel hidden 처리
+        self.addActions()
+        bindData()
+        
     }
-
+    
+    // MARK: - LifeCycle
+    
+    
+    
     // MARK: - Selectors
+    func addActions() {
+        // 로그인 버튼
+        loginBtn.addTarget(self, action: #selector(goLogin), for: .touchUpInside)
+        // 이메일 Textfield
+        emailTxtField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
+        // 비밀번호 찾기
+        forgetPwBtn.addTarget(self, action: #selector(goFindPassword), for: .touchUpInside)
+    }
+    
+    // MARK: - Login Action
     @objc func goLogin(sender: UIButton) {
         // 로그인 버튼 클릭
-
+        //Here we ask viewModel to update model with existing credentials from text fields
+        loginViewModel.updateUserLogin(email: emailTxtField.text!, password: pwTxtField.text!)
+        
+        //Here we check user's credentials input - if it's correct we call login()
+        switch loginViewModel.userLoginInput() {
+            
+        case .Correct:
+            login()
+        case .Incorrect:
+            return
+        }
         print(sender.tag)
+        
+    }
+    
+    @objc func goFindPassword(sender: UIButton) {
+        // 비밀번호 찾으러 가기
+        self.navigationController?.pushViewController(FindPasswordViewController(), animated: true)
+        
     }
     // 키보드 내리기
     @objc func didEndOnExit(_ sender: UITextField) {
@@ -290,12 +320,82 @@ class LoginViewController: UIViewController {
     }
 
     // MARK: - Helpers
-
+    
     func bindData() {
-
+        //        loginViewModel.userLoginInputErrorMessage.bind { [weak self] in
+        //            self?.loginErrorDescriptionLabel.isHidden = false
+        //            self?.loginErrorDescriptionLabel.text = $0
+        //        }
+        
+        loginViewModel.isEmailTextFieldHighLighted.bind { [weak self] in
+            if $0 { self?.highlightTextField(self?.emailTxtField ?? <#default value#>)}
+        }
+        
+        loginViewModel.isPasswordTextFieldHighLighted.bind { [weak self] in
+            if $0 { self?.highlightTextField(self?.pwTxtField ?? <#default value#>)}
+        }
+        
+        loginViewModel.errorMessage.bind {
+            guard let errorMessage = $0 else { return }
+            //Handle presenting of error message (e.g. UIAlertController)
+        }
     }
-
+    
+    func login() {
+//        loginViewModel.login() // 나중에 이거 다시 디자인 패턴에 맞게 하면 될듯
+        loginAction()
+        
+    }
+    
+    func loginAction()
+    {
+        LoginService.shared.login(email: self.emailTxtField.text!, passwd: self.pwTxtField.text!) { result in
+            switch result
+            {
+            case.success(let userdata):
+                print("로그인 통신 성공")
+                
+                if let data = userdata as? LoginDataClass {
+                    
+                    let accessToken = data.accessToken
+                    let refreshToken = data.refreshToken
+                    
+                    // keychain 저장
+                    KeyChain.shared.create(key: "accessToken", token: accessToken)
+                    KeyChain.shared.create(key: "refreshToken", token: refreshToken)
+                    print("Keychain 토큰 저장 성공")
+                    
+                }
+                // 로그인 성공 -> 메인화면으로 가기
+                self.navigationController?.pushViewController(MainTabViewController(), animated: true)
+                
+            case .requestErr(let location):
+                // 로그인 실패
+                if let location = location as? String{
+                    DispatchQueue.main.async{
+                        if location == "email" {
+                            self.emailInfoLbl.text = "가입되지 않은 이메일입니다."
+                        } else if location == "passwd" {
+                            self.pwInfoLbl.text = "올바르지 않은 비밀번호입니다"
+                        }
+                    }
+                    
+                }
+            default :
+                print("ERROR")
+            }
+        }
+        
+    }
+    
+    func highlightTextField(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.red.cgColor
+        textField.layer.cornerRadius = 8
+    }
 }
+
 // MARK: Extension
 // 파일 하나 만들어서 저장하기
 extension UIButton {
@@ -316,19 +416,19 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
     }
-
+    
     func setPadding(left: CGFloat? = nil, right: CGFloat? = nil) {
-
+        
         if let left = left {
-
+            
             let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: left, height: self.frame.size.height))
-
+            
             self.leftView = paddingView
             self.leftViewMode = .always
         }
-
+        
         if let right = right {
-
+            
             let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: right, height: self.frame.size.height))
             self.rightView = paddingView
             self.rightViewMode = .always
@@ -338,19 +438,19 @@ extension UITextField {
 
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-          emailTxtField.resignFirstResponder()
-          pwTxtField.resignFirstResponder()
-          return true
-      }
-
-      func textFieldDidBeginEditing(_ textField: UITextField) {
-          emailInfoLbl.isHidden = true
-          pwInfoLbl.isHidden = true
-          emailTxtField.layer.borderWidth = 0
-          pwTxtField.layer.borderWidth = 0
-      }
-
-      override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-          self.view.endEditing(true)
-      }
+        emailTxtField.resignFirstResponder()
+        pwTxtField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emailInfoLbl.isHidden = true
+        pwInfoLbl.isHidden = true
+        emailTxtField.layer.borderWidth = 0
+        pwTxtField.layer.borderWidth = 0
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

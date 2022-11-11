@@ -18,6 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = MainTabViewController()
         window?.makeKeyAndVisible()
+        
+        if let loginVC = self.window?.rootViewController as? LoginViewController {
+            let loginManager = LoginManager()
+            let loginViewModel = LoginViewModel(loginManager: loginManager)
+            loginVC.loginViewModel = loginViewModel
+        }
 
     }
 

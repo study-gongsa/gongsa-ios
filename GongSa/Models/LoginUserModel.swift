@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import UIKit
+
+
+struct UserLogin {
+    var email: String = ""
+    var password: String = ""
+}
+
 
 class LoginUserModel {
-
-    struct User {
-        var email: String
-        var password: String
-    }
-
+    
     // 아이디 형식 검사
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
