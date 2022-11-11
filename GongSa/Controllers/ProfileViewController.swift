@@ -10,7 +10,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     // MARK: - Properties
-    
+    var groups : [GroupRankList] = []
     
     
     
@@ -233,6 +233,39 @@ class ProfileViewController: UIViewController {
     // 유저 가입한 스터디 그룹 가져오기
     func getStudyGroups() {
         
+        StudyGroupListsService.shared.getStudyGroupLists() { result in
+            switch result
+            {
+            case .success(let studydata):
+                print("스터디 그룹 가져오기 통신 성공")
+                if let data = studydata as? StudyGroupDataClass {
+                    print("스터디그룹 리스트 데이터 가져오기 성공")
+                    self.groups = data.groupRankList
+                    print(self.groups.count)
+                    self.studylistTableView.reloadData()
+                }
+            case .requestErr(let msg):
+                // 로그인 실패
+                if let msg = msg as? String{
+                    
+                    print("마이페이지 통신 에러", "\(msg)")
+                    // 나중에 다시 팝업 창 뜨게 하기
+                }
+            
+            case .loginErr(let msg):
+                if let msg  = msg as? String {
+                    print(msg, "로그인 에러")
+                    
+                }
+            case .authErr(let msg):
+                if let msg = msg as? String {
+                    print(msg, "권한 에러")
+                }
+            default :
+                print("DEFAULT ERROR 이거야")
+            }
+        }
+        
         
         
     }
@@ -249,13 +282,74 @@ class ProfileViewController: UIViewController {
 
 // MARK: - TableView Delegate & DataSource
 extension ProfileViewController: UITableViewDelegate {
+    // Cell 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        let rows = groups.count
+        
+        return rows
     }
-    
+    // Cell 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Cell
         let cell = tableView.dequeueReusableCell(withIdentifier: StudylistTableViewCell.identifier, for: indexPath) as! StudylistTableViewCell
+        
+        // Row - 주어진 행에 맞춰 데이터 읽기
+        let groupRow = self.groups[indexPath.row]
+//        let member = groupRow.members[indexPath.row]
+        
+        
+        // Cell 내용
+        // Group 이름
+        cell.groupnameLbl.text = self.groups[indexPath.row].name
+        // Group - Member 이름
+        let memberCount = self.groups[indexPath.row].members.count
+        let mem = self.groups[indexPath.row].members
+
+        switch memberCount {
+        case 1:
+            cell.rank1Lbl.text = "1위: " + mem[0].nickname
+            // 없는 애들 숨기기
+            cell.rank2Lbl.isHidden = true
+            cell.rank3Lbl.isHidden = true
+            cell.rank4Lbl.isHidden = true
+            //
+        case 2:
+            cell.rank1Lbl.text = "1위: " + mem[0].nickname
+            cell.rank2Lbl.text = "2위: " + mem[1].nickname
+            // 없는 애들 숨기기
+            cell.rank3Lbl.isHidden = true
+            cell.rank4Lbl.isHidden = true
+            //
+        case 3:
+            cell.rank1Lbl.text = "1위: " + mem[0].nickname
+            cell.rank2Lbl.text = "2위: " + mem[1].nickname
+            cell.rank3Lbl.text = "3위: " + mem[2].nickname
+            // 없는 애들 숨기기
+            cell.rank4Lbl.isHidden = true
+        case 4..<10:
+            cell.rank1Lbl.text = "1위: " + mem[0].nickname
+            cell.rank2Lbl.text = "2위: " + mem[1].nickname
+            cell.rank3Lbl.text = "3위: " + mem[2].nickname
+            cell.rank4Lbl.text = "4위: " + mem[3].nickname
+            
+        default:
+            print("Cell 가지고 오는데 ERROR")
+        }
+        // 순위에 내 이름 있으면 하이라이트 하기
+        if mem[0].nickname == self.nameLbl.text {
+            cell.rank1Lbl.textColor =  UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
+            cell.rank1Lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
+        } else if mem[1].nickname == self.nameLbl.text {
+            cell.rank2Lbl.textColor =  UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
+            cell.rank2Lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
+        } else if mem[2].nickname == self.nameLbl.text {
+            cell.rank3Lbl.textColor =  UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
+            cell.rank3Lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
+        } else if mem[3].nickname == self.nameLbl.text {
+            cell.rank4Lbl.textColor =  UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
+            cell.rank4Lbl.font = UIFont(name: "Pretendard-Bold", size: 14)
+        } else {}
         
         return cell
     }
