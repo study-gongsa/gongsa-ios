@@ -11,4 +11,3 @@ import Foundation
 struct LoginRequest: Codable {
     let email, passwd: String
 }
-
