@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 
 class LoginViewModel {
-    
 //    //    private let loginManager: LoginManger
 //    private let loginManager : LoginManager
 ////    static let shared = LoginManager()

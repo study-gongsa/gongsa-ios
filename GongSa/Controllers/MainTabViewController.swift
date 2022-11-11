@@ -14,7 +14,9 @@ class MainTabViewController: UITabBarController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
 
-        authenticateUserAndConfigureUI()
+        configureViewControllers()
+        configureUI()
+//        authenticateUserAndConfigureUI()
     }
 
     // MARK: - Selectors
@@ -29,13 +31,18 @@ class MainTabViewController: UITabBarController {
                 let nav = UINavigationController(rootViewController: LoginViewController())
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)
+//                self.navigationController?.pushViewController(RegistrationViewController(), animated: true) // DEBUG
             }
         }
     }
 
-    private func isAuthenticated() -> Bool { return true }
+    private func isAuthenticated() -> Bool { return false }
 
     private func configureUI() {
+
+        tabBar.tintColor = UIColor.gsGreen
+        tabBar.unselectedItemTintColor = UIColor.gsLightGray
+
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
@@ -44,28 +51,28 @@ class MainTabViewController: UITabBarController {
             tabBar.scrollEdgeAppearance = appearance
         }
         if #available(iOS 13.0, *) {
-              let navBarAppearance = UINavigationBarAppearance()
-             navBarAppearance.configureWithOpaqueBackground()
-             navBarAppearance.backgroundColor = .white
-             navigationController?.navigationBar.standardAppearance = navBarAppearance
-             navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.backgroundColor = .white
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         }
     }
 
     private func configureViewControllers() {
         let searchGroupViewController = SearchGroupViewController()
-        let nav1 = createNavigationViewController(image: UIImage(named: ""), rootViewController: searchGroupViewController)
+        let searchGroupNav = createNavigationViewController(image: UIImage(named: "home"), rootViewController: searchGroupViewController)
 
         let groupListViewController = GroupListViewController()
-        let nav2 = createNavigationViewController(image: UIImage(named: ""), rootViewController: groupListViewController)
+        let groupListNav = createNavigationViewController(image: UIImage(named: "hamburger"), rootViewController: groupListViewController)
 
         let createGroupViewController = CreateGroupViewController()
-        let nav3 = createNavigationViewController(image: UIImage(named: ""), rootViewController: createGroupViewController)
+        let createGroupNav = createNavigationViewController(image: UIImage(named: "create"), rootViewController: createGroupViewController)
 
         let profileViewController = ProfileViewController()
-        let nav4 = createNavigationViewController(image: UIImage(named: ""), rootViewController: profileViewController)
+        let profileViewNav = createNavigationViewController(image: UIImage(named: "profile"), rootViewController: profileViewController)
 
-        viewControllers = [nav1, nav2, nav3, nav4]
+        viewControllers = [searchGroupNav, groupListNav, createGroupNav, profileViewNav]
     }
 
     private func createNavigationViewController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
