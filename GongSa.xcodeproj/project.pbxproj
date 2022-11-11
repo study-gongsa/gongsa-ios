@@ -188,6 +188,16 @@
 			path = StudygroupList;
 			sourceTree = "<group>";
 		};
+		3B906E2E291E0920007C2428 /* Ch_Network */ = {
+			isa = PBXGroup;
+			children = (
+				3BDFDB7928E5786E00316625 /* Password-Network */,
+				3BDE1578290D9573002DD661 /* Profile-Network */,
+				3BCF917128C66C860031F5B0 /* Login-Network */,
+			);
+			path = Ch_Network;
+			sourceTree = "<group>";
+		};
 		3BCF917128C66C860031F5B0 /* Login-Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,7 +243,6 @@
 			children = (
 				3BCF916B28C1DC710031F5B0 /* FindPasswordViewController.swift */,
 				3BF46A3D28DD96C500D362CE /* FindPasswordLoadingViewController.swift */,
-				3BDFDB7928E5786E00316625 /* Password-Network */,
 			);
 			path = ForgotPassword;
 			sourceTree = "<group>";
@@ -260,6 +269,7 @@
 		6D40B11728963EEB00ABD92A /* GongSa */ = {
 			isa = PBXGroup;
 			children = (
+				3B906E2E291E0920007C2428 /* Ch_Network */,
 				6DE5EC7928A43BEF008E2A30 /* Resources */,
 				6D52D6632896556900B1A73F /* Utils */,
 				6D40B1302896402000ABD92A /* Services */,
@@ -288,8 +298,6 @@
 		6D40B12D2896401300ABD92A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3BDE1578290D9573002DD661 /* Profile-Network */,
-				3BCF917128C66C860031F5B0 /* Login-Network */,
 			);
 			path = Views;
 			sourceTree = "<group>";
