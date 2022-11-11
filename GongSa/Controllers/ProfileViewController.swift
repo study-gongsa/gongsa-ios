@@ -209,10 +209,12 @@ class ProfileViewController: UIViewController {
                     self.levelLbl.text = "LV." + String(data.level)
                     // 랭크 - 상위 1%
                     self.rankLbl.text = "상위 "+String(data.percentage) + "%"
-                    // 이미지
+                    
+                    // 이미지 처리
                     let img = data.imgPath
                     let url = URL(string: "http://3.36.170.161:8080/api/image/\(img)")
-                    self.profileImgView.load(url: url!)
+                    self.profileImgView.imageDownload(url: url!)
+//                    self.profileImgView.getImageRequest(url: url!)
                     
                 }
                 
