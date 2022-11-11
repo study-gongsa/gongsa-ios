@@ -12,6 +12,7 @@ import SnapKit
 import Then
 
 // MARK: - Canvas
+@available(iOS 13.0, *)
 struct Profile_SettingViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = Profile_SettingViewController
     
