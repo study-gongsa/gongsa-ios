@@ -46,7 +46,7 @@ class StudyRoomViewController: UIViewController {
     lazy var myCameraView: UIImageView = {
         let img = UIImageView()
         img.image = UIImage.init(named: "testImg")
-        img.backgroundColor = .blue
+        img.backgroundColor = .white
         img.contentMode = .scaleAspectFill
         return img
         
@@ -116,6 +116,7 @@ class StudyRoomViewController: UIViewController {
 extension StudyRoomViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // TODO:  나중에 api 연결해서 하기
         return 6
     }
     
