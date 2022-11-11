@@ -22,7 +22,7 @@ struct UserRegisterData {
     }
 }
 
-enum promptMessage: String {
+enum PromptMessage: String {
     case emailFormatInvalid = "잘못된 이메일 형식입니다."
     case emailAlreadyExists = "중복된 이메일 입니다."
     case passwordFormatInvalid = "잘못된 비밀번호 형식입니다."
@@ -86,7 +86,7 @@ class RegisterViewModel {
     }
 
     var shouldEnableRegisterButton: Bool {
-        return isSignUpComplete && isAllChecked ? true : false
+        return isSignUpComplete && termsOfService.value && privacyPolicy.value ? true : false
     }
 
     // MARK: - Duplicate Check
@@ -110,8 +110,8 @@ class RegisterViewModel {
         if isEmailValid() {
             return ""
         } else {
-            debugPrint("DEBUG - emailDuplicateMessage", emailDuplicateMessage)
-            return doesEmailExist ? promptMessage.emailAlreadyExists.rawValue : promptMessage.emailFormatInvalid.rawValue
+//            debugPrint("DEBUG - emailDuplicateMessage", emailDuplicateMessage)
+            return doesEmailExist ? PromptMessage.emailAlreadyExists.rawValue : PromptMessage.emailFormatInvalid.rawValue
         }
     }
 
@@ -120,7 +120,7 @@ class RegisterViewModel {
         if isPasswordValid() {
             return ""
         } else {
-            return promptMessage.passwordFormatInvalid.rawValue
+            return PromptMessage.passwordFormatInvalid.rawValue
         }
     }
 
@@ -129,7 +129,7 @@ class RegisterViewModel {
         if isPasswordConfirmValid() {
             return ""
         } else {
-            return promptMessage.passwordConfirmFormatInvalid.rawValue
+            return PromptMessage.passwordConfirmFormatInvalid.rawValue
         }
     }
 
@@ -139,7 +139,7 @@ class RegisterViewModel {
             return ""
         } else {
             debugPrint("DEBUG - nicknameDuplicateMessage", nicknameDuplicateMessage)
-            return doesNicknameExist ? promptMessage.nicknameAlreadyExists.rawValue : promptMessage.nicknameFormatInvalid.rawValue
+            return doesNicknameExist ? PromptMessage.nicknameAlreadyExists.rawValue : PromptMessage.nicknameFormatInvalid.rawValue
         }
     }
 
@@ -164,22 +164,22 @@ class RegisterViewModel {
     // MARK: - TextField Border Color
 
     var emailTextFieldBorderColor: CGColor {
-        if user.value.email == "" { return UIColor.gsDarkGray.cgColor }
+        if user.value.email == "" { return UIColor.gsLightGray.cgColor }
         return isEmailValid() ? UIColor.gsLightGray.cgColor : UIColor.gsRed.cgColor
     }
 
     var passwordTextFieldBorderColor: CGColor {
-        if user.value.password == "" { return UIColor.gsDarkGray.cgColor }
+        if user.value.password == "" { return UIColor.gsLightGray.cgColor }
         return isPasswordValid() ? UIColor.gsLightGray.cgColor : UIColor.gsRed.cgColor
     }
 
     var passwordConfirmTextFieldBorderColor: CGColor {
-        if user.value.passwordConfirm == "" { return UIColor.gsDarkGray.cgColor }
+        if user.value.passwordConfirm == "" { return UIColor.gsLightGray.cgColor }
         return isPasswordConfirmValid() ? UIColor.gsLightGray.cgColor : UIColor.gsRed.cgColor
     }
 
     var nicknameTextFieldBorderColor: CGColor {
-        if user.value.nickname == "" { return UIColor.gsDarkGray.cgColor }
+        if user.value.nickname == "" { return UIColor.gsLightGray.cgColor }
         return isNicknameValid() ? UIColor.gsLightGray.cgColor : UIColor.gsRed.cgColor
     }
 

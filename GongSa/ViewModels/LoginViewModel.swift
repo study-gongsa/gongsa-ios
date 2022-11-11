@@ -18,9 +18,5 @@ struct UserLoginData {
 }
 
 class LoginViewModel {
-    
-    
-    
-    
-    
+
 }
