@@ -76,6 +76,8 @@ class ProfileViewController: UIViewController {
         $0.layer.borderColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
         $0.layer.borderWidth = 1
         $0.setTitle(" Q&A ", for: .normal)
+        // 버튼 누르기
+        $0.addTarget(self, action: #selector(goQnA), for: .touchUpInside)
         
     }
     // 톱니바퀴 버튼
@@ -88,6 +90,8 @@ class ProfileViewController: UIViewController {
         }
         $0.tintColor = .darkGray
         $0.frame = CGRect(x: 0, y: 0, width: 17.2, height: 18.33)
+        // 버튼 누르기
+        $0.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
     }
     // 하단 스터디목록 TableView
     var studylistTableView = UITableView().then {
@@ -272,7 +276,20 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Selectors
     
-    // 톱니바퀴 버튼
+    @objc func goSetting(sender: UIButton) {
+        print("마이페이지 Setting으로 가자")
+        // 먼저 다음 화면으로 가기 loading View
+        self.navigationController?.pushViewController(Profile_SettingViewController(), animated: true)
+        
+    }
+    
+    @objc func goQnA(sender: UIButton) {
+        print("마이페이지 질문보기로 가자")
+        // 먼저 다음 화면으로 가기 loading View
+        self.navigationController?.pushViewController(Profile_QAViewController(), animated: true)
+        
+    }
+    
     
     
     // MARK: - Helpers

@@ -72,8 +72,6 @@ class FindPasswordViewController: UIViewController {
         
     }
     
-    
-    
     lazy var okEmailBtn = UIButton().then {
         $0.frame = CGRect(x: 0, y: 0, width: 327, height: 52)
         $0.backgroundColor = .white
@@ -91,16 +89,7 @@ class FindPasswordViewController: UIViewController {
     }
     
     func setConstaints() {
-        // 로그인 버튼 - button
-        /*
-        self.loginBtn.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.top.equalTo(pwTxtField.snp.bottom).offset(58)
-            $0.leading.trailing.equalToSuperview().offset(24)
-            $0.trailing.equalToSuperview().offset(-24)
-            
-        }
-         */
+        
         self.writeEmailLbl.snp.makeConstraints {
 //            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(72)
             $0.top.equalToSuperview().offset(72)
@@ -115,6 +104,7 @@ class FindPasswordViewController: UIViewController {
             $0.top.equalTo(emailLbl.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
+            $0.height.equalTo(47)
         }
         self.okEmailBtn.snp.makeConstraints {
             $0.center.equalToSuperview()
