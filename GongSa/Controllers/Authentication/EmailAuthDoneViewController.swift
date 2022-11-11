@@ -23,7 +23,7 @@ class EmailAuthDoneViewController: UIViewController {
         label.text = "이메일 인증이 완료되었습니다."
         label.textColor = .gsBlack
         label.textAlignment = .center
-        label.font = .pretendard(size: 16, family: .Bold)
+        label.font = .pretendard(size: 16, family: .bold)
         return label
     }()
 
@@ -32,7 +32,7 @@ class EmailAuthDoneViewController: UIViewController {
         label.text = "공사와 함께 원하는 목표를 달성하세요."
         label.textColor = .gsBlack
         label.textAlignment = .center
-        label.font = .pretendard(size: 14, family: .Medium)
+        label.font = .pretendard(size: 14, family: .medium)
         return label
     }()
 

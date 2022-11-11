@@ -23,7 +23,7 @@ class EmailAuthWaitingViewController: UIViewController {
 
     private let helpLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pretendard(size: 16, family: .Bold)
+        label.font = UIFont.pretendard(size: 16, family: .bold)
         label.textColor = UIColor.gsBlack
         label.text = "이메일 확인중입니다"
         label.textAlignment = .center
@@ -32,7 +32,7 @@ class EmailAuthWaitingViewController: UIViewController {
 
     private let helpSubLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pretendard(size: 14, family: .Medium)
+        label.font = UIFont.pretendard(size: 14, family: .medium)
         label.textColor = UIColor.gsDarkGray
         label.text = "승인은 최대 1시간 소요될 수 있습니다."
         label.textAlignment = .center

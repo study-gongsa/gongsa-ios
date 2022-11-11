@@ -21,7 +21,7 @@ class EmailAuthCodeViewController: UIViewController {
     private let emailGuideLabel: UILabel = {
         let label = UILabel()
         label.text = "입력하신 이메일 주소"
-        label.font = UIFont.pretendard(size: 16, family: .Medium)
+        label.font = UIFont.pretendard(size: 16, family: .medium)
         label.textColor = UIColor.gsBlack
         return label
     }()
@@ -29,7 +29,7 @@ class EmailAuthCodeViewController: UIViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "gongsa@google.com"
-        label.font = UIFont.pretendard(size: 16, family: .Bold)
+        label.font = UIFont.pretendard(size: 16, family: .bold)
         label.textColor = UIColor.gsBlack
         return label
     }()
