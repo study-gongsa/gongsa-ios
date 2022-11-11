@@ -58,7 +58,7 @@ class FindPasswordViewController: UIViewController {
         $0.layer.cornerRadius = 8
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
-        $0.layer.frame.size.height = 47
+//        $0.layer.frame.size.height = 47
         // MARK: - HERE To Solve
 //        $0.layer.frame.size.height = 47 /// 해결해야할 부분
         $0.font = UIFont(name: "Pretendard-Medium", size: 16)

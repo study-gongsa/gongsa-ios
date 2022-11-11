@@ -5,14 +5,12 @@
 //  Created by Chaerin Han on 2022/11/11.
 //
 
-
 import UIKit
 import SwiftUI
 import SnapKit
 import Then
 
 // MARK: - Canvas
-@available(iOS 13.0, *)
 struct Studyroom_QAViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = Studyroom_QAViewController
     
@@ -46,14 +44,13 @@ class Studyroom_QAViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.titleTxtView.resignFirstResponder()
+//        self.titleTxtView.resignFirstResponder()
         self.contentTxtView.resignFirstResponder()
     }
     
     
     // MARK: - Configure
     func configure() {
-        self.titleTxtView.delegate = self
         self.contentTxtView.delegate = self
     }
     
@@ -61,17 +58,18 @@ class Studyroom_QAViewController: UIViewController {
     // MARK: - UI
     
     // 제목 TextView
-    lazy var titleTxtView = UITextView().then {
+    lazy var titleTxtField = UITextField().then {
         
         $0.layer.borderWidth = 1
         $0.backgroundColor = .white
         $0.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         $0.layer.cornerRadius = 8
         $0.layer.borderColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1).cgColor
-        
+        $0.font = UIFont(name: "Pretendard-Bold", size: 16)
         // place holder
-        $0.text = "질문 제목"
+        $0.placeholder = "질문 제목"
         $0.textColor = UIColor.lightGray
+//        $0.setPadding(left: 16, right: 0)
     }
     
     // 내용 TextView
@@ -97,27 +95,21 @@ class Studyroom_QAViewController: UIViewController {
     }
     
     
-    
-    
-    
     // MARK: - View
     
     func setView() {
-        view.addSubview(self.titleTxtView)
+        view.addSubview(self.titleTxtField)
         view.addSubview(self.contentTxtView)
         view.addSubview(self.okBtn)
     }
     
     
-    
-    
-        
     // MARK: - Constraints
     
     
     func setConstraints() {
         
-        self.titleTxtView.snp.makeConstraints {
+        self.titleTxtField.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(52)
             $0.trailing.leading.equalToSuperview().inset(24)
             $0.height.equalTo(43)
@@ -129,7 +121,7 @@ class Studyroom_QAViewController: UIViewController {
         }
         
         self.contentTxtView.snp.makeConstraints {
-            $0.top.equalTo(titleTxtView.snp.bottom).offset(20)
+            $0.top.equalTo(titleTxtField.snp.bottom).offset(20)
             $0.trailing.leading.equalToSuperview().inset(24)
             $0.bottom.equalTo(okBtn.snp.topMargin).offset(-40)
         }
