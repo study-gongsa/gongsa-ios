@@ -32,5 +32,8 @@ extension UIColor {
     static var gsBlack: UIColor {
         return UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1)
     }
-
+    
+    static var gsLightGreen: UIColor {
+        return UIColor(red: 0.865, green: 0.953, blue: 0.322, alpha: 1)
+    }
 }

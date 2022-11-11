@@ -6,33 +6,46 @@
 //
 
 import UIKit
+import SnapKit
 
 class Utilities {
 
     func inputContainerView(text: String, textField: UITextField, error: UILabel? = nil) -> UIView {
 
         let textLabel = UILabel()
-        textLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
         textLabel.text = text
         textLabel.textColor = UIColor.gsDarkGray
-        textLabel.font = UIFont.pretendard(size: 14, family: .Bold)
+        textLabel.font = UIFont.pretendard(size: 14, family: .bold)
 
-        let view = UIStackView(arrangedSubviews: [textLabel, textField, error ?? UILabel()])
-        view.distribution = .fillEqually
-        view.axis = .vertical
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: 90).isActive = true
 
-        view.setDimensions(width: 327, height: 90)
-
-        textLabel.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor)
-
-        textField.anchor(top: textLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 8)
-
+        view.addSubview(textLabel)
+        view.addSubview(textField)
         guard let error = error else {
-            textField.anchor(top: textLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 8)
+            textLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
+                             right: view.rightAnchor)
+            textField.anchor(top: textLabel.bottomAnchor, left: textLabel.leftAnchor,
+                             bottom: view.bottomAnchor, right: textLabel.rightAnchor,
+                             paddingTop: 8, height: 47)
             return view
-
         }
-        error.anchor(top: textField.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 4)
+
+        view.addSubview(error)
+
+        error.text = "잘못된 형식의 입력입니다."
+
+        textLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
+                         right: view.rightAnchor)
+        textField.anchor(top: textLabel.bottomAnchor, left: textLabel.leftAnchor,
+                         right: textLabel.rightAnchor, paddingTop: 8, height: 47)
+        error.anchor(top: textField.bottomAnchor, left: textLabel.leftAnchor,
+                     bottom: view.bottomAnchor, right: textLabel.rightAnchor,
+                     paddingTop: 4)
+
+        textLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        textField.setContentHuggingPriority(.defaultLow, for: .vertical)
+        error.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         return view
     }
@@ -41,11 +54,11 @@ class Utilities {
 
         let textLabel = UILabel()
         textLabel.textColor = UIColor.gsDarkGray
-        textLabel.font = UIFont.pretendard(size: 12, family: .Medium)
+        textLabel.font = UIFont.pretendard(size: 12, family: .medium)
         textLabel.text = text
 
         let view = UIStackView(arrangedSubviews: [checkbox, textLabel, button])
-        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 35).isActive = true
         view.distribution = .equalCentering
 
         view.addSubview(checkbox)
@@ -62,13 +75,12 @@ class Utilities {
 
     func textField(withPlaceholder placeholder: String) -> UITextField {
         let textField = TextField()
-        textField.setDimensions(width: 327, height: 47)
         textField.placeholder = placeholder
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
-        textField.font = UIFont.pretendard(size: 16, family: .Medium)
-        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 16, family: .Medium)])
+        textField.layer.borderColor = UIColor.gsLightGray.cgColor
+        textField.font = UIFont.pretendard(size: 16, family: .medium)
+        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 16, family: .medium)])
         textField.textColor = UIColor.gsBlack
 
         return textField
@@ -76,7 +88,7 @@ class Utilities {
 
     func errorLabel() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.pretendard(size: 12, family: .Medium)
+        label.font = UIFont.pretendard(size: 12, family: .medium)
         label.textColor = UIColor.gsRed
         label.heightAnchor.constraint(equalToConstant: 14).isActive = true
         label.isHidden = true
@@ -92,10 +104,29 @@ class Utilities {
         return checkbox
     }
 
+    func buttonWithLabel(withButton button: UIButton, labelText text: String) -> UIView {
+        let label = UILabel()   /// text next to the button
+        label.text = text
+        label.font = .pretendard(size: 14, family: .medium)
+
+        let stackView = UIStackView(arrangedSubviews: [button, label])
+        stackView.axis = .horizontal
+
+        button.snp.makeConstraints { make in
+            make.top.left.bottom.equalToSuperview()
+        }
+        label.snp.makeConstraints { make in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(button.snp.right).inset(-6)
+        }
+
+        return stackView
+    }
+
 }
 
 class TextField: UITextField {
-    let padding = UIEdgeInsets(top: 7, left: 16, bottom: 7, right: 5)
+    let padding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 5)
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
