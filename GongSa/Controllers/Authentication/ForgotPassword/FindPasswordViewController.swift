@@ -31,7 +31,7 @@ class FindPasswordViewController: UIViewController {
                     action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
-    
+    // MARK: - Layout
     // 이메일 입력 안내 - label
     lazy var writeEmailLbl = UILabel().then {
         $0.backgroundColor = UIColor.white
@@ -69,8 +69,6 @@ class FindPasswordViewController: UIViewController {
     lazy var emailDescriptionLbl = UILabel().then {
         $0.backgroundColor = UIColor.white
         $0.text = "이메일 입력 안내문"
-        
-        
         
     }
     
@@ -136,7 +134,7 @@ class FindPasswordViewController: UIViewController {
         
     }
     
-    // MARK: Event
+    // MARK: - Event
     
     @objc func goFindPassword(sender: UIButton) {
         print("비밀번호 찾기로 가자")
@@ -148,6 +146,7 @@ class FindPasswordViewController: UIViewController {
         
     }
     
+    // MARK: - Network
     func findPassword() {
         // 비밀번호 찾기
         PasswordService.shared.findPassword(email: self.emailTxtField.text!) { result in
