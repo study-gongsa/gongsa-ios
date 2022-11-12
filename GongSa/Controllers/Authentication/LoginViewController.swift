@@ -296,7 +296,7 @@ class LoginViewController: UIViewController {
             
         case .Correct:
             self.loginBtn.isEnabled = true
-            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
+            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
             login()
             
         case .Incorrect:
