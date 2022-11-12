@@ -190,6 +190,7 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(emailLbl.snp.bottom).offset(24)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
+            $0.height.equalTo(47)
         }
         // 아메일 입력 안내 - label
         self.emailInfoLbl.snp.makeConstraints {
@@ -208,6 +209,7 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(pwLbl.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
+            $0.height.equalTo(47)
         }
         // 비밀번호 입력 안내 - label
         self.pwInfoLbl.snp.makeConstraints {
@@ -292,7 +294,10 @@ class LoginViewController: UIViewController {
         switch loginViewModel.userLoginInput() {
             
         case .Correct:
+            self.loginBtn.isEnabled = true
+            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
             login()
+            
         case .Incorrect:
             return
         }
@@ -442,6 +447,7 @@ extension LoginViewController: UITextFieldDelegate {
         pwInfoLbl.isHidden = true
         emailTxtField.layer.borderWidth = 0
         pwTxtField.layer.borderWidth = 0
+        loginBtn.isEnabled = false // 로그인 버튼 터치 불가
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

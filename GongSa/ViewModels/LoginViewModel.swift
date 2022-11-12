@@ -10,13 +10,6 @@ import Foundation
 
 class LoginViewModel {
     
-//    //    private let loginManager: LoginManger
-//    private let loginManager : LoginManager
-////    static let shared = LoginManager()
-//    init(loginManager: LoginManager) {
-//        self.loginManager = loginManager
-//    }
-    
     private var userLogin =  UserLogin() {
         didSet {
             email = userLogin.email
@@ -40,10 +33,6 @@ class LoginViewModel {
     
     
     func login() {
-        
-        
-        
-        
         
 //        loginManager.loginWithUserInfos(email: email, passwd: passwd) { [weak self] (error) in
 //            guard let error = error else {
