@@ -419,6 +419,7 @@
 		6D40B12E2896401600ABD92A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */,
 				3B2D19AA291393E100E432D2 /* StudyRoom */,
 				3BD967F0290BCE8F009C23AF /* Profile */,
 				3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */,

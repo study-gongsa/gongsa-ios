@@ -40,10 +40,6 @@ class LoginViewModel {
     
     func login() {
         
-        
-        
-        
-        
 //        loginManager.loginWithUserInfos(email: email, passwd: passwd) { [weak self] (error) in
 //            guard let error = error else {
 //                return

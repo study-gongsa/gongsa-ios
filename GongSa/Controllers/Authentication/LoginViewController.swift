@@ -295,7 +295,10 @@ class LoginViewController: UIViewController {
         switch loginViewModel.userLoginInput() {
             
         case .Correct:
+            self.loginBtn.isEnabled = true
+            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
             login()
+            
         case .Incorrect:
             return
         }
@@ -448,6 +451,7 @@ extension LoginViewController: UITextFieldDelegate {
         pwInfoLbl.isHidden = true
         emailTxtField.layer.borderWidth = 0
         pwTxtField.layer.borderWidth = 0
+        loginBtn.isEnabled = false // 로그인 버튼 터치 불가
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
