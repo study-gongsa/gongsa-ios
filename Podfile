@@ -10,4 +10,8 @@ target 'GongSa' do
   pod 'SwiftLint'
   pod 'SnapKit'
   pod 'Then'
+  pod 'BetterSegmentedControl', '~> 2.0'
+  pod 'SDWebImage', '~> 5.0'
+  pod 'Kingfisher', '~> 7.0'
+
 end

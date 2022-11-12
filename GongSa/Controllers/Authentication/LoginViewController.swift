@@ -34,7 +34,6 @@ struct ViewPreview: PreviewProvider {
 class LoginViewController: UIViewController {
     
     //    private loginManager: LoginManager
-    
     // MARK: - Properties
     
     var loginViewModel: LoginViewModel!
@@ -135,10 +134,9 @@ class LoginViewController: UIViewController {
     // 회원가입 button
     lazy var createAccountBtn = UIButton().then {
         $0.backgroundColor = .white
-        $0.setTitleColor(UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1), for: .normal)
+        $0.setTitleColor(UIColor.gsLightGray, for: .normal)
         $0.setTitle("회원가입", for: .normal)
         $0.setUnderline()
-        
     }
     // 비밀번호 찾기 label
     lazy var forgetpwLbl = UILabel().then {
@@ -154,9 +152,13 @@ class LoginViewController: UIViewController {
         $0.setTitleColor(UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1), for: .normal)
         $0.setTitle("비밀번호 찾기", for: .normal)
         $0.setUnderline()
+        // temp
+        let attributedString = NSAttributedString(string: "비밀번호 찾기", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor: UIColor.gsLightGray, NSAttributedString.Key.font: UIFont.pretendard(size: 14, family: .medium) ])
+        $0.setAttributedTitle(attributedString, for: .normal)
     }
     // MARK: setUI
     func setUpView() {
+        self.view.backgroundColor = .white
         self.view.addSubview(self.titleLbl) // 로그인
         self.view.addSubview(self.emailLbl) // 이메일
         self.view.addSubview(self.emailTxtField)
@@ -175,22 +177,22 @@ class LoginViewController: UIViewController {
     func setConstraints() {
         // 맨위 로그인 라벨
         self.titleLbl.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(12)
+            $0.top.equalToSuperview().offset(6)
             $0.left.centerX.equalToSuperview()
             
         }
         // 이메일 주소 입력 - label
         self.emailLbl.snp.makeConstraints {
-            $0.top.equalTo(titleLbl.snp.bottom).offset(72)
+            $0.top.equalTo(titleLbl.snp.bottom).offset(60)
             $0.leading.trailing.equalToSuperview().offset(24)
         }
         
         // 이메일 입력 - textfield
         self.emailTxtField.snp.makeConstraints {
-            $0.top.equalTo(emailLbl.snp.bottom).offset(24)
+            $0.top.equalTo(emailLbl.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.height.equalTo(47)
+            $0.height.equalTo(47).constraint
         }
         // 아메일 입력 안내 - label
         self.emailInfoLbl.snp.makeConstraints {
@@ -206,10 +208,10 @@ class LoginViewController: UIViewController {
         }
         // 비밀번호 입력 - textfield
         self.pwTxtField.snp.makeConstraints {
-            $0.top.equalTo(pwLbl.snp.bottom).offset(24)
+            $0.top.equalTo(pwLbl.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.height.equalTo(47)
+            $0.height.equalTo(47).constraint
         }
         // 비밀번호 입력 안내 - label
         self.pwInfoLbl.snp.makeConstraints {
@@ -221,10 +223,9 @@ class LoginViewController: UIViewController {
         // 로그인 버튼 - button
         self.loginBtn.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.top.equalTo(pwTxtField.snp.bottom).offset(58)
+            $0.top.equalTo(pwTxtField.snp.bottom).offset(52)
             $0.leading.trailing.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
-            
         }
         // 회원가입 - label
         self.createAccountLbl.snp.makeConstraints {
@@ -301,7 +302,6 @@ class LoginViewController: UIViewController {
         case .Incorrect:
             return
         }
-        
         print(sender.tag)
         
     }
@@ -317,6 +317,11 @@ class LoginViewController: UIViewController {
             pwTxtField.becomeFirstResponder()
         }
     }
+
+    @objc func createAccountBtnTapped(_ sender: UIButton) {
+        self.navigationController?.pushViewController(RegistrationViewController(), animated: true)
+    }
+
     // MARK: - Helpers
     
     func bindData() {
@@ -337,7 +342,6 @@ class LoginViewController: UIViewController {
             guard let errorMessage = $0 else { return }
             //Handle presenting of error message (e.g. UIAlertController)
         }
-        
     }
     
     func login() {
