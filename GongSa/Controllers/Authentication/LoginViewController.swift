@@ -296,7 +296,7 @@ class LoginViewController: UIViewController {
             
         case .Correct:
             self.loginBtn.isEnabled = true
-            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1).cgColor
+            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
             login()
             
         case .Incorrect:
@@ -346,6 +346,9 @@ class LoginViewController: UIViewController {
     
     func login() {
 //        loginViewModel.login() // 나중에 이거 다시 디자인 패턴에 맞게 하면 될듯
+        
+        loginBtn.isEnabled = true
+        loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
         loginAction()
         
     }
