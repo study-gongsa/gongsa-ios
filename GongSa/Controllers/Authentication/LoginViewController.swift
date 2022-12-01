@@ -307,7 +307,7 @@ class LoginViewController: UIViewController {
             guard let email = sender.text, !email.isEmpty else { return }
             
             if loginViewModel.isValidEmail(id: email) {
-                sender.layer.borderColor = UIColor.black.cgColor
+                sender.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
                 emailStatus = true
                 self.email = email
                 self.emailInfoLbl.isHidden = true
@@ -325,7 +325,7 @@ class LoginViewController: UIViewController {
             guard let password = sender.text, !password.isEmpty else { return }
             
             if loginViewModel.isValidPassword(pwd: password) {
-                sender.layer.borderColor = UIColor.black.cgColor
+                sender.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
                 self.pwInfoLbl.isHidden = true
                 passwordStatus = true
                 self.password = password
