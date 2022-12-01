@@ -310,7 +310,7 @@ class LoginViewController: UIViewController {
                 sender.layer.borderColor = UIColor.black.cgColor
                 emailStatus = true
                 self.email = email
-                
+                self.emailInfoLbl.isHidden = true
             } else {
                 // wrong
                 DispatchQueue.main.async {
