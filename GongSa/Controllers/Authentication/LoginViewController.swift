@@ -403,8 +403,10 @@ class LoginViewController: UIViewController {
                 if let location = location as? String{
                     DispatchQueue.main.async{
                         if location == "email" {
+                            self.emailInfoLbl.isHidden = false
                             self.emailInfoLbl.text = "가입되지 않은 이메일입니다."
                         } else if location == "passwd" {
+                            self.pwInfoLbl.isHidden = false
                             self.pwInfoLbl.text = "올바르지 않은 비밀번호입니다"
                         }
                     }
