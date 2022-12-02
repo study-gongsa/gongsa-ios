@@ -26,6 +26,10 @@
 		3BBF59F628AE9ADF00765AF9 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */; };
 		3BC0085428D2FBE700973E5D /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC0085328D2FBE600973E5D /* NetworkResult.swift */; };
 		3BCBADE02915103A00ADCED4 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBADDF2915103A00ADCED4 /* UIImageView.swift */; };
+		3BCCFF78293A7AF400668308 /* MyRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCCFF77293A7AF400668308 /* MyRequestInterceptor.swift */; };
+		3BCCFF7A293A7B2200668308 /* RefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCCFF79293A7B2200668308 /* RefreshService.swift */; };
+		3BCCFF7D293A7C7300668308 /* RefeshResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCCFF7C293A7C7300668308 /* RefeshResponse.swift */; };
+		3BCCFF7F293A7C8400668308 /* RetryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCCFF7E293A7C8400668308 /* RetryResult.swift */; };
 		3BCF916C28C1DC710031F5B0 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF916B28C1DC710031F5B0 /* FindPasswordViewController.swift */; };
 		3BCF916E28C66C730031F5B0 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF916D28C66C730031F5B0 /* LoginRequest.swift */; };
 		3BCF917028C66C820031F5B0 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCF916F28C66C820031F5B0 /* LoginResponse.swift */; };
@@ -123,6 +127,10 @@
 		3BBF59F528AE9ADF00765AF9 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
 		3BC0085328D2FBE600973E5D /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3BCBADDF2915103A00ADCED4 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		3BCCFF77293A7AF400668308 /* MyRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRequestInterceptor.swift; sourceTree = "<group>"; };
+		3BCCFF79293A7B2200668308 /* RefreshService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshService.swift; sourceTree = "<group>"; };
+		3BCCFF7C293A7C7300668308 /* RefeshResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefeshResponse.swift; sourceTree = "<group>"; };
+		3BCCFF7E293A7C8400668308 /* RetryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryResult.swift; sourceTree = "<group>"; };
 		3BCF916B28C1DC710031F5B0 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		3BCF916D28C66C730031F5B0 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		3BCF916F28C66C820031F5B0 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -273,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC0085328D2FBE600973E5D /* NetworkResult.swift */,
+				3BCCFF7B293A7C6100668308 /* Refresh */,
 				3B906E43291EB51D007C2428 /* Studyroom-Network */,
 				3BDFDB7928E5786E00316625 /* Password-Network */,
 				3BDE1578290D9573002DD661 /* Profile-Network */,
@@ -298,6 +307,17 @@
 				3B906E48291EB564007C2428 /* StudyroomQuestionService.swift */,
 			);
 			path = "Studyroom-Network";
+			sourceTree = "<group>";
+		};
+		3BCCFF7B293A7C6100668308 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				3BCCFF77293A7AF400668308 /* MyRequestInterceptor.swift */,
+				3BCCFF79293A7B2200668308 /* RefreshService.swift */,
+				3BCCFF7C293A7C7300668308 /* RefeshResponse.swift */,
+				3BCCFF7E293A7C8400668308 /* RetryResult.swift */,
+			);
+			path = Refresh;
 			sourceTree = "<group>";
 		};
 		3BCF917128C66C860031F5B0 /* Login-Network */ = {
@@ -736,11 +756,13 @@
 				6D3ABEFD290E378A00A780FB /* UILabel+CustomLabel.swift in Sources */,
 				6D5B446728AE74C000D13089 /* SignUpResponse.swift in Sources */,
 				6D52D66C289656AF00B1A73F /* GroupListViewController.swift in Sources */,
+				3BCCFF78293A7AF400668308 /* MyRequestInterceptor.swift in Sources */,
 				6D2A3ADD28E1D17B0099835B /* ChipCollectionViewCell.swift in Sources */,
 				6D5B446328AE442B00D13089 /* APIService.swift in Sources */,
 				3B906E40291EA034007C2428 /* MyQuestionsResponse.swift in Sources */,
 				6D52D6672896563600B1A73F /* SearchGroupViewController.swift in Sources */,
 				6D3CA72A28C36C3300646BDE /* UIImage+CustomImage.swift in Sources */,
+				3BCCFF7D293A7C7300668308 /* RefeshResponse.swift in Sources */,
 				6DDFDD46291EBACA005FFBB8 /* StudyGroupInfoDetailViewController.swift in Sources */,
 				6DF57DA0290FDCD200515530 /* QnaTableViewCell.swift in Sources */,
 				6DD7488928964C960000B288 /* MainTabViewController.swift in Sources */,
@@ -751,6 +773,7 @@
 				6D5B446528AE444A00D13089 /* AuthService.swift in Sources */,
 				6DDFDD42291E9D5E005FFBB8 /* UITextField+CustomTextField.swift in Sources */,
 				3B906E42291EA058007C2428 /* MyQuestionsService.swift in Sources */,
+				3BCCFF7F293A7C8400668308 /* RetryResult.swift in Sources */,
 				3BDFDB7B28E59D0800316625 /* PasswordRequest.swift in Sources */,
 				3BE1C49B290272D1005904B3 /* KeyChain.swift in Sources */,
 				6DD7488528964C270000B288 /* LoginViewController.swift in Sources */,
@@ -795,6 +818,7 @@
 				3BF46A3E28DD96C500D362CE /* FindPasswordLoadingViewController.swift in Sources */,
 				6DE5EC7F28A43E4B008E2A30 /* UIColor+CustomColor.swift in Sources */,
 				3BD967F2290BCEB7009C23AF /* StudylistTableViewCell.swift in Sources */,
+				3BCCFF7A293A7B2200668308 /* RefreshService.swift in Sources */,
 				3B906E47291EB546007C2428 /* StudyroomQuestionResponse.swift in Sources */,
 				3B2EB41228FB2D30000B3EEC /* StudyRoomViewController.swift in Sources */,
 				3B906E32291E0AE8007C2428 /* Profile_QAViewController.swift in Sources */,
