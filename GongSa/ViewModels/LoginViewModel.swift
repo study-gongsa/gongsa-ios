@@ -32,7 +32,7 @@ class LoginViewModel {
     var isEmailTextFieldHighLighted: Observable<Bool> = Observable(false)
     var isPasswordTextFieldHighLighted: Observable<Bool> = Observable(false)
     var errorMessage: Observable<String?> = Observable(nil)
-    
+    var loginEnabled : Observable<Bool> = Observable(false)
     // 아이디 형식 검사
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
