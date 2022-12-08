@@ -186,7 +186,7 @@ class LoginViewController: UIViewController {
     func setConstraints() {
         // 맨위 로그인 라벨
         self.titleLbl.snp.makeConstraints {
-            $0.top.equalTo(view.sa).offset(6)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(6)
             $0.left.centerX.equalToSuperview()
             
         }
@@ -277,7 +277,7 @@ class LoginViewController: UIViewController {
         self.setDelegate()
         self.setDefault() // infoLabel hidden 처리
         self.addActions()
-        bindData()
+//        bindData()
     }
     
     // MARK: - LifeCycle
