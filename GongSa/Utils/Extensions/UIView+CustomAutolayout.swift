@@ -82,4 +82,19 @@ extension UIView {
         anchor(top: view.topAnchor, left: view.leftAnchor,
                bottom: view.bottomAnchor, right: view.rightAnchor)
     }
+    
+    func pin(to view: UIView) {
+        NSLayoutConstraint.activate([
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            topAnchor.constraint(equalTo: view.topAnchor),
+            bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func roundCorners(cornerRadius: CGFloat, maskedCorners: CACornerMask) {
+        clipsToBounds = true
+        layer.cornerRadius = cornerRadius
+        layer.maskedCorners = CACornerMask(arrayLiteral: maskedCorners)
+    }
 }
