@@ -47,20 +47,13 @@ class LoginViewModel {
         return passwordTest.evaluate(with: pwd)
     }
     
-    func completionLoginBtn(isOn: Bool) {
-        switch isOn {
-        case true:
-            self.loginEnabled.value = true
-        case false:
-            self.loginEnabled.value = false
-        }
-    }
+    
     
     // Update UserLogin
     func updateUserLogin(email: String, password: String, otp: String? = nil) {
         userLogin.email = email
         userLogin.password = password
-        completionLoginBtn(isOn: true)
+//        completionLoginBtn(isOn: true)
     }
     
     
@@ -111,28 +104,28 @@ class LoginViewModel {
         if email.isEmpty {
             userLoginInputErrorMessage.value = "이메일을 입력해주세요"
             isEmailTextFieldHighLighted.value = true
-            completionLoginBtn(isOn: false)
+            
             return .Incorrect
         }
         // 비밀번호 칸 비어있으면
         if password.isEmpty {
             userLoginInputErrorMessage.value = "비밀번호를 입력해주세요"
             isPasswordTextFieldHighLighted.value = true
-            completionLoginBtn(isOn: false)
+            
             return .Incorrect
         }
         // 이메일 형식 검사
         if isValidEmail(id: email) == false {
             userLoginInputErrorMessage.value = "올바르지 않은 이메일 형식입니다"
             isEmailTextFieldHighLighted.value = true
-            completionLoginBtn(isOn: false)
+//            completionLoginBtn(isOn: false)
             return .Incorrect
         }
         
         if isValidPassword(pwd: password) == false {
             userLoginInputErrorMessage.value = "올바른 비밀번호를 입력해주세요"
             isPasswordTextFieldHighLighted.value = true
-            completionLoginBtn(isOn: false)
+//            completionLoginBtn(isOn: false)
             return .Incorrect
         }
         
