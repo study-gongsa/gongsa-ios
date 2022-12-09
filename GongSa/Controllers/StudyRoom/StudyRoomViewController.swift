@@ -42,7 +42,7 @@ class StudyRoomViewController: UIViewController {
        
        private var updateButtonImage = false {
            didSet {
-               self.priceButton.setImage(UIImage(systemName: updateButtonImage ? "playpause.fill" : "playpause"), for: UIControl.State.normal)
+               self.expandableMainBtn.setImage(UIImage(systemName: updateButtonImage ? "playpause.fill" : "playpause"), for: UIControl.State.normal)
                
            }
        }
@@ -90,6 +90,7 @@ class StudyRoomViewController: UIViewController {
             
         default:
             print("expandableButton - Function Button ERROR")
+            break
         }
     }
     
@@ -151,7 +152,7 @@ class StudyRoomViewController: UIViewController {
         $0.layer.borderWidth = 0
     }
     // expandableButton
-    lazy var priceButton = UIButton().then{
+    lazy var expandableMainBtn = UIButton().then{
         
         $0.setImage(UIImage(systemName: "clock.arrow.circlepath"), for: UIControl.State.normal)
         //        UIImage(systemName: "search", withConfiguration: boldConfig)
@@ -245,7 +246,7 @@ extension StudyRoomViewController {
 //            self.mainStackView.addArrangedSubview(view)
 //        }
 
-        [buttonStackView, priceButton].forEach { (view) in
+        [buttonStackView, expandableMainBtn].forEach { (view) in
             self.mainStackView.addArrangedSubview(view)
         }
         /// set constraints
@@ -309,7 +310,7 @@ extension StudyRoomViewController {
             
             /// change button image and update the width constraint
             self.updateButtonImage = !self.buttonsAreHidden
-            self.widthConstant = self.buttonsAreHidden ?  self.priceButton.frame.width : 216
+            self.widthConstant = self.buttonsAreHidden ?  self.expandableMainBtn.frame.width : 216
 //            self.widthConstant = self.buttonsAreHidden ?  self.priceButton.frame.width : screenSize.size.width - 20
 
             
