@@ -81,9 +81,6 @@ final class SearchGroupTableViewCell: UITableViewCell {
     // MARK: - Helpers
     private func configureUI() {
         
-        //        backgroundColor = .blue -> 뷰 대상으로 컨텐트 뷰에 마진을 넣은거라서 빈 공간에도 터치 됨. 백그라운드 색 준 이유: 잊지말라고.
-        //        contentView.backgroundColor = .gsLightGray
-        
         let bottomButtonStackView = UIStackView(arrangedSubviews: [cameraButton, infoButton])
         bottomButtonStackView.axis = .horizontal
         bottomButtonStackView.distribution = .fillEqually
@@ -136,43 +133,8 @@ final class SearchGroupTableViewCell: UITableViewCell {
     public func configure(title: String, date: String, imageURL: String, isCamOn: Bool) {
         self.groupNameLabel.text = title
         self.dateTimeLabel.text = date
-        //        self.groupImageView.sd_setImage(with: URL(string: "https://i.picsum.photos/id/603/200/200.jpg?hmac=0BCtNqTfCvRnGEYZ9CJPnBJ8RjT9g0wRO3iDtLHWcnY"))
-        //        let urlRequest = URLRequest(url: URL(string: imageURL)!, method: .get)
         
         guard let url = URL(string: AuthService.Constants.baseURL + imageURL) else { print("debug - error"); fatalError("invalid url") }
-//        print("debug - url", url)
-//        let imageData = NSData(contentsOf: url)
-//        print("debug - data", imageData)
-//        let strBase64 = imageData?.base64EncodedString(options: .lineLength64Characters)
-//        print("debug - base64", strBase64)
-        //        let imgData = Data.init(base64Encoded: strBase64 ?? "", options: .init(rawValue: 0))
-        ////        let imgData = Data(base64Encoded: strBase64 ?? "")
-        //        print("debug - imgData", imgData)
-        
-//        var urlRequest = URLRequest(url: url)
-////        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        print("DEBUG - url", url)
-//        urlRequest.setValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY2NjUxODc4NiwiZXhwIjoxNjY5MTEwNzg2LCJ1c2VyVUlEIjo0MCwidXNlckF1dGhVSUQiOjIyNn0.IPZGj1GCTwrHkyMNPI3qP3H63chztwPn_LwuAlE4nEg", forHTTPHeaderField: "Authorization")
-//        URLSession.shared.dataTask(with: urlRequest) { data, res, err in
-//            let string = String(data: data!, encoding: .utf8)!
-//            print("DEBUG - data", string)
-//            print("DEBUG - res", res)
-//        }
-//        .resume()
-        
-        
-        //        groupImageView.sd_setImage(with: <#T##URL?#>)
-        //        let data = NSData(contentsOf: URL(string: imageURL)!)
-        //        NSData
-        //        print("debug - data", data)
-        //        let image = UIImage(data: data as? Data ?? Data())
-        //        print("debug - ", image)
-        //        self.groupImageView.image = image
-        
-        //        self.groupImageView.sd_setImage(with: URL(string: AuthService.Constants.baseURL + imageURL))
-//        self.groupImageView.kf.setImage(with: URL(string: AuthService.Constants.baseURL+imageURL))
-        //        self.groupImageView.load(url: URL(string: AuthService.Constants.baseURL+imageURL)!)
-        
         let cameraButtonColor = isCamOn ? UIColor.gsGreen : UIColor.gsDarkGray
         self.cameraButton.setImage(UIImage(named: "cameraOn")?.withTintColor(cameraButtonColor), for: .normal)
     }
@@ -192,7 +154,6 @@ extension UIImageView {
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         completion(image)
-                        //                        self?.image = image
                     }
                 }
             }
