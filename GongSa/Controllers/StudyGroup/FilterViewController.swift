@@ -54,8 +54,6 @@ final class FilterViewController: BasePopupViewController {
     
     private lazy var cameraOption1: UIView = {
         let view = Utilities().buttonWithLabel(withButton: radioButton1, labelText: "모두보기")
-//        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(radioButtonTapped))
-//        view.addGestureRecognizer(tapRecognizer)
         return view
     }()
     

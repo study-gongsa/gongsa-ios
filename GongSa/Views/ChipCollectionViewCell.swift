@@ -47,7 +47,6 @@ final class ChipCollectionViewCell: UICollectionViewCell {
             make.centerX.centerY.equalToSuperview()
             make.width.equalTo(45)
             make.height.equalTo(28)
-//            make.edges.equalToSuperview()
         }
     }
     

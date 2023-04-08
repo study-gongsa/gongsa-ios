@@ -13,15 +13,6 @@ import Kingfisher
 
 let reuseIdentifier = "SearchGroupViewController"
 
-//struct StudyGroup: Decodable {
-//    let studyGroupUID: Int
-//    let imgPath: String
-//    let name: String
-//    let isCam: Bool
-//    let createdAt: Int64
-//    let expiredAt: Int64
-//}
-
 let idxToCategory: [Int: String] = [1: "자격증", 2: "어학", 3: "취업", 4: "시험", 5: "공무원", 6: "독서", 7: "기타"]
 
 final class SearchGroupViewController: UIViewController {
@@ -61,7 +52,6 @@ final class SearchGroupViewController: UIViewController {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
-        //        label.frame = CGRect.init(x: 24, y: 5, width: headerStackView.frame.width-10, height: headerStackView.frame.height-10)
         label.text = "이런 방은 어떠세요?"
         label.font = UIFont.pretendard(size: 20, family: .bold)
         return label
@@ -69,7 +59,7 @@ final class SearchGroupViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.register(SearchGroupTableViewCell.self, forCellReuseIdentifier: SearchGroupTableViewCell.identifier) // td
+        tableView.register(SearchGroupTableViewCell.self, forCellReuseIdentifier: SearchGroupTableViewCell.identifier)
         return tableView
     }()
     
@@ -118,7 +108,6 @@ final class SearchGroupViewController: UIViewController {
         let params = ["type": "main"]
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY2NjQ5ODMzOSwiZXhwIjoxNjY5MDkwMzM5LCJ1c2VyVUlEIjo0MCwidXNlckF1dGhVSUQiOjIxMn0.UAKj98uoKNwVudndMKmSa4X1wTBqFWUqZUaGak0qaKA"
         let headers: HTTPHeaders = [.authorization(bearerToken: token)]
-        //        var data: DataClass?
         APIService.shared.recommend(params: params, headers: headers) { response in
             guard let searchGroupList = response.value?.data?.studyGroupList else { return }
             self.dummySearchGroup = searchGroupList.filter { $0.isCam == true }
@@ -140,9 +129,6 @@ final class SearchGroupViewController: UIViewController {
         }
         print("DEBUG - toggle", sender.index, cameraToggleOn)
         self.tableView.reloadData()
-        //        DispatchQueue.main.async {
-        //            self.tableView.reloadData()
-        //        }
     }
     
     @objc func enterCodeButtonTapped() {
@@ -261,8 +247,6 @@ extension SearchGroupViewController: UITableViewDelegate {
         
         print("DEBUG - clicked:", self.dummySearchGroup[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        //        pushPopUpViewController(StudyRoomInfoViewController())
     }
 }
 
@@ -283,10 +267,6 @@ extension SearchGroupViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        //        guard let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell") as? SearchGroupTableViewCell else {
-        //            return UITableViewCell()
-        //        }
-        
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.masksToBounds = true
         
@@ -300,16 +280,13 @@ extension SearchGroupViewController: UITableViewDataSource {
             searchGroup = self.dummyCameraOffSearchGroup[indexPath.row]
         }
         
-        /// ----------------------------------
         guard let url = URL(string: AuthService.Constants.baseURL + "api/image/" + searchGroup.imgPath) else { print("debug - error"); fatalError("invalid url") }
         let modifier = AnyModifier { request in
             var req = request
             req.setValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY2NjUxODc4NiwiZXhwIjoxNjY5MTEwNzg2LCJ1c2VyVUlEIjo0MCwidXNlckF1dGhVSUQiOjIyNn0.IPZGj1GCTwrHkyMNPI3qP3H63chztwPn_LwuAlE4nEg", forHTTPHeaderField: "Authorization")
             return req
         }
-        //        print("debug - url", url)
         DispatchQueue.main.async {
-            /// todo: String(searchGroup.createdAt)
             cell.configure(title: searchGroup.name,
                            date: String(searchGroup.createdAt),
                            imageURL: searchGroup.imgPath,
@@ -318,7 +295,6 @@ extension SearchGroupViewController: UITableViewDataSource {
             cell.indexPath = indexPath
             cell.groupImageView.kf.setImage(with: url, placeholder: UIImage(named: "img3"), options: [.requestModifier(modifier), ])
         }
-        /// ----------------------------------
         
         return cell
     }
@@ -354,7 +330,6 @@ extension SearchGroupViewController: UICollectionViewDataSource {
 extension SearchGroupViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.query = searchText.trimmingCharacters(in: .whitespaces).lowercased()
-        //        print("DEBUG - ", query)
         
         
     }
@@ -398,7 +373,6 @@ extension SearchGroupViewController: UISearchBarDelegate {
                 print("DEBUG - updated", self.dummySearchGroup)
                 self.tableView.reloadData()
             }
-            //            print("debug - off", self.dummyCameraOffSearchGroup)
         }
     }
 }
@@ -419,7 +393,6 @@ extension SearchGroupViewController: FilterOptionDelegate {
 
 extension SearchGroupViewController: infoTapDelegate {
     func infoButtonTapped(indexPath: IndexPath) {
-        //        print("DEBUG - info tapped in Search Group VC", indexPath[1])
         let searchGroup: StudyGroup
         if cameraToggleOn {
             searchGroup = self.dummySearchGroup[indexPath.row]

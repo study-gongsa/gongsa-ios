@@ -46,10 +46,6 @@ final class StudyGroupInfoViewController: UIViewController {
         return label
     }()
     
-//    private let categoryCollectionView: UICollectionView
-    
-//    private let userCollectionView: UICollectionView
-    
     private lazy var qnaButton: UIButton = {
         let button = UIButton.main(withTitle: "Q&A")
         button.addTarget(self, action: #selector(qnaButtonTapped), for: .touchUpInside)

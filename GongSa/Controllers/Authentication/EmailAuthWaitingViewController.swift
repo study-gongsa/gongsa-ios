@@ -46,7 +46,6 @@ class EmailAuthWaitingViewController: UIViewController {
         configureNavigationBar()
         configureUI()
 
-        //         debug
         sendMail { response in
             switch response {
             case .success(let response):
@@ -91,10 +90,6 @@ class EmailAuthWaitingViewController: UIViewController {
 
     private func configureUI() {
 
-//        view.addSubview(loadingIndicator)
-//        loadingIndicator.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 150, width: 100, height: 100)
-//        loadingIndicator.center(inView: view, yConstant: -170)
-
         let stackView = UIStackView(arrangedSubviews: [loadingIndicator, helpLabel, helpSubLabel])
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
@@ -106,7 +101,6 @@ class EmailAuthWaitingViewController: UIViewController {
         helpLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         helpSubLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
-        //        loadingIndicator.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
         loadingIndicator.anchor(top: stackView.topAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
         helpLabel.anchor(top: loadingIndicator.bottomAnchor, left: stackView.leftAnchor, right: stackView.rightAnchor)
         helpSubLabel.anchor(top: helpLabel.bottomAnchor, left: stackView.leftAnchor, bottom: stackView.bottomAnchor, right: stackView.rightAnchor, paddingTop: 12)

@@ -49,7 +49,6 @@ final class EnterStudyGroupViewController: BasePopupViewController {
         return label
     }()
     private let numPeopleHelpText: UILabel = {
-//        return UILabel.customLabel()
         let label = UILabel();
         label.text = "입장 제한까지 1명 남았어요."
         label.font = .pretendard(size: 12, family: .medium)
