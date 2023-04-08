@@ -13,7 +13,6 @@ class EmailAuthDoneViewController: UIViewController {
 
     private let doneIcon: UIImageView = {
         let icon = UIImageView(image: UIImage(named: "complete"))
-//        icon.setDimensions(width: 60.21, height: 41.56)
         icon.contentMode = .scaleAspectFit
         return icon
     }()
