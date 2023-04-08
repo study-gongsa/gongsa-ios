@@ -10,8 +10,7 @@ import Foundation
 import Alamofire
 
 struct StudyroomQuestionService{
-    // 싱클턴 패턴 - static 키워드로 shared라는 프로퍼티에 싱글턴 인스턴스 저장하여 생성
-    // 여러 VC에서도 shared로 접근하면 같은 인스턴스에 접근할 수 있는 형태
+    
     static let shared = StudyroomQuestionService()
     
     private func makeParameter(title : String, content : String, grpID: Int ) -> Parameters
@@ -22,7 +21,6 @@ struct StudyroomQuestionService{
                 ]
     }
     
-//    let headers: HTTPHeaders = ["Authorization" : "Bearer \(KeychainSwift().get("access_key")!)"]
     let headers: HTTPHeaders = [
         "Accept": "application/json",
         "Authorization" : "Bearer \(String(describing: KeyChain.shared.read(key: "accessToken")))"]
@@ -34,7 +32,6 @@ struct StudyroomQuestionService{
                       completion : @escaping (NetworkResult<Any>) -> Void)
     {
         
-//        let header : HTTPHeaders = ["Content-Type": "application/json"]
         let URL = "http://3.36.170.161:8080/api/question"
         let dataRequest = AF.request(URL,
                                      method: .post,
@@ -78,6 +75,9 @@ struct StudyroomQuestionService{
             
         case 201: return .success(decodedData.data) // 성공
         case 403: return .requestErr(decodedData.msg) // 실패
+        case 400: return .networkFail
+        case 401: return .loginErr(decodedData.location)
+            
             //        case 500: return .serverErr
         default: return .networkFail
         }

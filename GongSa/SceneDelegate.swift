@@ -16,13 +16,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let scene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = MainTabViewController()
-        window?.makeKeyAndVisible()
+//        window?.rootViewController = MainTabViewController()
+//        window?.makeKeyAndVisible()
         
-        if let loginVC = self.window?.rootViewController as? LoginViewController {
-            let loginManager = LoginManager()
-            let loginViewModel = LoginViewModel(loginManager: loginManager)
-            loginVC.loginViewModel = loginViewModel
+        if KeyChain.shared.read(key: "accessToken") != nil {
+            // Has KeyChain Access Token
+            print("Has Access Token")
+            let rootVC = MainTabViewController() // Start VC
+            let navigationController = UINavigationController(rootViewController: rootVC)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        } else {
+            // Doesn't have KeyChain Access Token
+            print("Doesn't have Access Token")
+            let rootVC = LoginViewController() // Start VC
+            let navigationController = UINavigationController(rootViewController: rootVC)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
         }
 
     }

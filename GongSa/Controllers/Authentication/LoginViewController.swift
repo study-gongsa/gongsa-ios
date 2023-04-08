@@ -36,7 +36,16 @@ class LoginViewController: UIViewController {
     //    private loginManager: LoginManager
     // MARK: - Properties
     
-    var loginViewModel: LoginViewModel!
+    var loginViewModel = LoginViewModel()
+    var userModel = LoginUserModel()
+    
+    var emailStatus: Bool = false
+    var passwordStatus: Bool = false
+    
+    var email: String = ""
+    var password : String = ""
+    
+    // MARK: - Layout
     
     // 로그인 라벨
     lazy var titleLbl = UILabel().then {
@@ -177,7 +186,7 @@ class LoginViewController: UIViewController {
     func setConstraints() {
         // 맨위 로그인 라벨
         self.titleLbl.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(6)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(6)
             $0.left.centerX.equalToSuperview()
             
         }
@@ -257,6 +266,7 @@ class LoginViewController: UIViewController {
     func setDefault() {
         pwInfoLbl.isHidden = true
         emailInfoLbl.isHidden = true
+        pwTxtField.isSecureTextEntry = true
     }
     // MARK: - ViewDidLpad
     
@@ -267,8 +277,7 @@ class LoginViewController: UIViewController {
         self.setDelegate()
         self.setDefault() // infoLabel hidden 처리
         self.addActions()
-        bindData()
-        
+//        bindData()
     }
     
     // MARK: - LifeCycle
@@ -281,28 +290,72 @@ class LoginViewController: UIViewController {
         loginBtn.addTarget(self, action: #selector(goLogin), for: .touchUpInside)
         // 이메일 Textfield
         emailTxtField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
+        emailTxtField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
+        pwTxtField.addTarget(self, action: #selector(self.textFieldDidChange), for: .editingChanged)
         // 비밀번호 찾기
         forgetPwBtn.addTarget(self, action: #selector(goFindPassword), for: .touchUpInside)
+        createAccountBtn.addTarget(self, action: #selector(createAccountBtnTapped), for: .touchUpInside)
     }
     
-    // MARK: - Login Action
+    // 텍스트 입력하는 동안
+    @objc func textFieldDidChange(sender: UITextField) {
+        // 색 변하기
+        switch sender {
+            
+        case self.emailTxtField:
+            
+            guard let email = sender.text, !email.isEmpty else { return }
+            
+            if loginViewModel.isValidEmail(id: email) {
+                sender.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
+                emailStatus = true
+                self.email = email
+                self.emailInfoLbl.isHidden = true
+            } else {
+                // wrong
+                DispatchQueue.main.async {
+                    sender.layer.borderColor = UIColor.red.cgColor
+                    self.emailInfoLbl.isHidden = false
+                    self.emailInfoLbl.text = "올바른 형식의 이메일을 입력해주세요"
+                }
+                
+            }
+            
+        case self.pwTxtField:
+            guard let password = sender.text, !password.isEmpty else { return }
+            
+            if loginViewModel.isValidPassword(pwd: password) {
+                sender.layer.borderColor = UIColor(red: 0.81, green: 0.81, blue: 0.81, alpha: 1).cgColor
+                self.pwInfoLbl.isHidden = true
+                passwordStatus = true
+                self.password = password
+            } else {
+                // wrong
+                DispatchQueue.main.async {
+                    sender.layer.borderColor = UIColor.red.cgColor
+                    self.pwInfoLbl.isHidden = false
+                    self.pwInfoLbl.text = "올바른 비밀번호를 입력해주세요"
+                }
+                
+                
+                
+            }
+        default:
+            print("textfielddidchange")
+            break
+        }
+        
+        
+    }
+    
     @objc func goLogin(sender: UIButton) {
         // 로그인 버튼 클릭
-        //Here we ask viewModel to update model with existing credentials from text fields
-        loginViewModel.updateUserLogin(email: emailTxtField.text!, password: pwTxtField.text!)
-        
-        //Here we check user's credentials input - if it's correct we call login()
-        switch loginViewModel.userLoginInput() {
-            
-        case .Correct:
-            self.loginBtn.isEnabled = true
-            self.loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
-            login()
-            
-        case .Incorrect:
-            return
+        if emailStatus, passwordStatus {
+            loginAction()
+        } else {
+            // 로그인 불가
+            print("로그인 불가")
         }
-        print(sender.tag)
         
     }
     
@@ -324,37 +377,7 @@ class LoginViewController: UIViewController {
 
     // MARK: - Helpers
     
-    func bindData() {
-        //        loginViewModel.userLoginInputErrorMessage.bind { [weak self] in
-        //            self?.loginErrorDescriptionLabel.isHidden = false
-        //            self?.loginErrorDescriptionLabel.text = $0
-        //        }
-        
-        loginViewModel.isEmailTextFieldHighLighted.bind { [weak self] in
-            if $0 { self?.highlightTextField(self?.emailTxtField ?? <#default value#>)}
-        }
-        
-        loginViewModel.isPasswordTextFieldHighLighted.bind { [weak self] in
-            if $0 { self?.highlightTextField(self?.pwTxtField ?? <#default value#>)}
-        }
-        
-        loginViewModel.errorMessage.bind {
-            guard let errorMessage = $0 else { return }
-            //Handle presenting of error message (e.g. UIAlertController)
-        }
-    }
-    
-    func login() {
-//        loginViewModel.login() // 나중에 이거 다시 디자인 패턴에 맞게 하면 될듯
-        
-        loginBtn.isEnabled = true
-        loginBtn.backgroundColor = UIColor(red: 0.176, green: 0.71, blue: 0.482, alpha: 1)
-        loginAction()
-        
-    }
-    
-    func loginAction()
-    {
+    func loginAction() {
         LoginService.shared.login(email: self.emailTxtField.text!, passwd: self.pwTxtField.text!) { result in
             switch result
             {
@@ -380,8 +403,10 @@ class LoginViewController: UIViewController {
                 if let location = location as? String{
                     DispatchQueue.main.async{
                         if location == "email" {
+                            self.emailInfoLbl.isHidden = false
                             self.emailInfoLbl.text = "가입되지 않은 이메일입니다."
                         } else if location == "passwd" {
+                            self.pwInfoLbl.isHidden = false
                             self.pwInfoLbl.text = "올바르지 않은 비밀번호입니다"
                         }
                     }
